@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "KHU6Q0BAAwNZos34C7oFSykuVhLyRAhsK9Dbl0xUhK9GVgXPwuUxP6yxVg38U6aYVYAOfxv0iaTHPpEJEQUOWQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Owner\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\BetterDialogue\\BetterDialogue.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Owner\\.nuget\\packages\\tmodloader.codeassist\\0.1.5\\tmodloader.codeassist.0.1.5.nupkg.sha512"
+  ],
+  "logs": []
+}

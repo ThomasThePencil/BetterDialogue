@@ -1,0 +1,3 @@
+displayName = [VSC Framework] Dialect
+author = the pixelated Sign Painter
+version = 1.0

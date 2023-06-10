@@ -1,0 +1,5 @@
+C:\Users\Owner\Documents\My Games\Terraria\tModLoader\ModSources\BetterDialogue\obj\Debug\net6.0\BetterDialogue.csproj.AssemblyReference.cache
+C:\Users\Owner\Documents\My Games\Terraria\tModLoader\ModSources\BetterDialogue\obj\Debug\net6.0\BetterDialogue.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Owner\Documents\My Games\Terraria\tModLoader\ModSources\BetterDialogue\obj\Debug\net6.0\BetterDialogue.AssemblyInfoInputs.cache
+C:\Users\Owner\Documents\My Games\Terraria\tModLoader\ModSources\BetterDialogue\obj\Debug\net6.0\BetterDialogue.AssemblyInfo.cs
+C:\Users\Owner\Documents\My Games\Terraria\tModLoader\ModSources\BetterDialogue\obj\Debug\net6.0\BetterDialogue.csproj.CoreCompileInputs.cache

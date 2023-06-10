@@ -1,0 +1,40 @@
+Mods: {
+	BetterDialogue: {
+		Config: {
+			BoxThiccCs: {
+				Label: Dialogue Box Width
+				Description:
+					'''
+					Decides how thicc or thin your dialogue box is, in 15x15 (30x30 when upscaled) tiles of the selected dialogue style's box.
+					Decrease if you need less of your screen taken up by the dialogue box.
+					Increase if you need more room in the dialogue box for all that stuff your NPCs won't shut up about.
+					Note that this includes the tiles used for the left and right edges of the box.
+					Also note that some dialogue styles added by other mods might completely disregard this setting.
+					Default size is 15 tiles wide. Valid value range is 12 to 30 tiles wide.
+					'''
+			}
+
+			BoxHeight: {
+				Label: Dialogue Box Maximum Lines
+				Description:
+					'''
+					Decides the maximum number of lines a dialogue box can have.
+					Currently, if more lines are present than can be displayed in the box, they will be cut off.
+					Default maximum line count is 10. Valid value range is 5 to 15 maximum lines.
+					'''
+			}
+
+			SelectStyle: {
+				Header: Available Dialogue Styles
+				Label: Select Dialogue Style
+				Description:
+					'''
+					Select which dialogue style you'd like to have active.
+					If your most recent dialogue style could not be found, automagically resets to the default (Classic).
+					'''
+			}
+		}
+
+		Configs.BetterDialogueConfig.DisplayName: Better Dialogue Config
+	}
+}

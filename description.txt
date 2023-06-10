@@ -1,0 +1,24 @@
+have you ever found yourself fantastically bored by the vanilla dialogue panel?
+are you looking for a more intimately and readily available NPC chat system?
+do you seek PASSION? ROMANCE!? someone who can LIVE UP TO YOUR EXPECTATIONS?!?
+
+...well, you won't find any of that last bit here, save for possibly the part about expectations.
+what you WILL find, however, is Dialect, a...framework? API? what's the word I'm lookin' for?...that aims to overhaul the livin' hell outta dialogue internally for better use (and abuse, of course) by modders.
+to clarify, Dialect isn't meant to be a standalone mod (though a demonstrative change to the Guide's craftin' button are made in the UI/Examples folder).
+it's instead intended, most predominantly, for use by other mods as a way to add more diverse dialogue displays.
+if you wanna learn how to use it, just check out the GitHub page (helpfully provided as the "homepage" or linked on the Steam Workshop page you subbed on) and get to workin'!
+
+as a framework for chat modification, Dialect comes pre-equipped with the followin' useful things to help you learn:
+- well-documented chat button modification examples that even apply in-game for ease of demonstration!
+- thorough XML documentation on every currently-available aspect of Dialect's API!
+- a freshened-up version of the vanilla dialogue style as an alternative option, for those just a little tired of the vanilla flair!
+- a few configuration options to generally apply to dialogue styles! note that dialogue styles don't HAVE to obey these; they just CAN (and SHOULD, though I can't force any of 'em to)
+
+(NOTE: this mod assumes that you're willin' to use it as a dependency. if this isn't your speed, I wouldn't bother; the mod has NO Mod.Call support whatsoever, and I don't plan to add any, as doin' so would defeat the point)
+
+
+
+...huh? what's that? what does VSC stand for?
+
+if anyone knows, they know
+if anyone asks, Victorian Sugar Cookies
