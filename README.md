@@ -25,7 +25,9 @@ the followin' tModLoader hooks will not work while Dialect is active. please loo
 
 # AFTERWORD
 
-this is the first entry in a possible series of library mods known as the VSC Framework, mainly designed to add tools that tModLoader doesn't provide itself
+this is the first entry in a possible series of library mods known as the VSC Framework, mainly designed to add tools that tModLoader doesn't provide itself for some more common use cases than one might assume libraries would be best for
+
+if you have any questions about Dialect, please feel free to direct them to me on Discord (name there is thomasthepencil), and have a good time!
 
 huh?
 what's that?
