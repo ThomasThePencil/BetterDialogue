@@ -1,6 +1,8 @@
 Mods: {
 	BetterDialogue: {
-		Config: {
+		Configs: {
+			BetterDialogueConfig.DisplayName: Personalization
+
 			BoxThiccCs: {
 				Label: Dialogue Box Width
 				Description:
@@ -34,7 +36,5 @@ Mods: {
 					'''
 			}
 		}
-
-		Configs.BetterDialogueConfig.DisplayName: Better Dialogue Config
 	}
 }

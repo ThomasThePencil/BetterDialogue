@@ -45,6 +45,11 @@ namespace BetterDialogue.UI
 		public abstract string DisplayName { get; }
 
 		/// <summary>
+		/// A description of this dialogue style.
+		/// </summary>
+		public abstract string Description { get; }
+
+		/// <summary>
 		/// The Texture2D to be used as the sheet in which the tiles used to construct the dialogue box reside.<br/>
 		/// This is a 3x3 sheet of 15x15 (30x30 once upscaled) tiles which represent the corners, edges, and center of the dialogue box.<br/>
 		/// Please refer to the default dialogue styles to see examples.

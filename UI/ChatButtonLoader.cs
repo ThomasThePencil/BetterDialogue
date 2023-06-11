@@ -49,6 +49,15 @@ namespace BetterDialogue.UI
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="chatButton"></param>
+		/// <param name="npc"></param>
+		/// <param name="player"></param>
+		/// <returns>
+		/// The text that this <see cref="ChatButton"/> should display.<br/>
+		/// </returns>
 		public static string GetText(ChatButton chatButton, NPC npc, Player player)
 		{
 			string buttonText = chatButton.Text(npc, player);
@@ -67,7 +76,7 @@ namespace BetterDialogue.UI
 				buttonColor = overrideColor.Value;
 			foreach (GlobalChatButton global in ChatButtonGlobals)
 			{
-				global.OverrideColor(chatButton, npc, player, ref buttonColor);
+				global.ModifyColor(chatButton, npc, player, ref buttonColor);
 			}
 			return buttonColor;
 		}

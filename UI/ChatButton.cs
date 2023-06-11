@@ -28,6 +28,9 @@ namespace BetterDialogue.UI
 			ChatButtonLoader.ChatButtons.Add(this);
 		}
 
+		/// <summary>
+		/// Combines both buttons used for sign editing.<br/>
+		/// </summary>
 		public static TheOneSignButton Sign { get; private set; } = new TheOneSignButton();
 		public static PetButton Pet { get; private set; } = new PetButton();
 		public static ShopButton Shop { get; private set; } = new ShopButton();
@@ -38,8 +41,12 @@ namespace BetterDialogue.UI
 		public static DyeTraderQuestButton DyeTraderStrangePlants { get; private set; } = new DyeTraderQuestButton();
 		public static DryadWorldStatusButton DryadWorldStatus { get; private set; } = new DryadWorldStatusButton();
 		public static DryadPurifyButton DryadPurifySoda { get; private set; } = new DryadPurifyButton();
+		/// <summary>
+		/// The button that you click on when you're ready to get scammed 361 times by the Goblin Tinkerer (read: takes you to the reforge menu).<br/>
+		/// Specific to the Goblin Tinkerer.
+		/// </summary>
 		public static GoblinTinkererReforgeButton GoblinTinkererScamButton { get; private set; } = new GoblinTinkererReforgeButton();
-		public static PainterSecondShopButton PainterDecorShop { get; private set; } = new PainterSecondShopButton();
+		public static PainterDecorShopButton PainterDecorShop { get; private set; } = new PainterDecorShopButton();
 		public static StylistHaircutButton StyistHaircut { get; private set; } = new StylistHaircutButton();
 		public static PartyGirlMusicButton PartyGirlMusic { get; private set; } = new PartyGirlMusicButton();
 		public static TaxCollectorTaxButton TaxCollectorNeedsYOUToTakeYourDamnTaxesAlready { get; private set; } = new TaxCollectorTaxButton();
@@ -55,9 +62,7 @@ namespace BetterDialogue.UI
 
 		/// <summary>
 		/// The text your chat button is to display.<br/>
-		/// <b>I need to know this, or your button shrimply will not work!</b><br/>
-		/// <br/>
-		/// [Required Field]<br/>
+		/// <b>Mandatory.</b><br/>
 		/// </summary>
 		/// <param name="npc">The NPC the given player is talking to.</param>
 		/// <param name="player">The player talking to the given NPC.</param>
@@ -69,6 +74,10 @@ namespace BetterDialogue.UI
 		/// </summary>
 		/// <param name="npc">The NPC the given player is talking to.</param>
 		/// <param name="player">The player talking to the given NPC.</param>
+		/// <returns>
+		/// <see langword="null"/> by default, which means the color will not be overrided.<br/>
+		/// Otherwise, the <see cref="Color"/> returned will override whatever color the button would normally use.<br/>
+		/// </returns>
 		public virtual Color? OverrideColor(NPC npc, Player player) => null;
 
 		/// <summary>
@@ -79,13 +88,27 @@ namespace BetterDialogue.UI
 		/// <param name="player">The player talking to the given NPC.</param>
 		public virtual string Description(NPC npc, Player player) => null;
 
+		/// <summary>
+		/// Allows you to tell the game when this chat button should and shouldn't be available.<br/>
+		/// </summary>
+		/// <param name="npc">The NPC the given player is talking to.</param>
+		/// <param name="player">The player talking to the given NPC.</param>
+		/// <returns>
+		/// </returns>
 		public virtual bool IsActive(NPC npc, Player player) => true;
 
+		/// <summary>
+		/// Tells you if this button is being hovered over by the player's mouse.<br/>
+		/// </summary>
 		public bool IsHovered => HoverBox.Contains(Main.MouseScreen.ToPoint());
+
+		/// <summary>
+		/// Stores the most recent hover state of this button for the purposes of <see cref="HoverChanged"/>.<br/>
+		/// </summary>
 		public bool WasHovered { get; set; }
 
 		/// <summary>
-		/// Allows checking whether or not this chat button has changed hover states in the most recent frame.
+		/// Allows checking whether or not this chat button has changed hover states in the most recent frame.<br/>
 		/// </summary>
 		/// <returns>
 		/// If the button has not changed hover states, <see langword="null"/>.<br/>
@@ -104,21 +127,16 @@ namespace BetterDialogue.UI
 		}
 
 		/// <summary>
-		/// Allows you to make this button do something when it gets hovered over!
+		/// Allows you to make this button do something when it gets hovered over in the dialogue box.<br/>
+		/// Note that this operates independently of a button being clicked on.<br/>
 		/// </summary>
 		/// <param name="npc">The NPC the given player is talking to.</param>
 		/// <param name="player">The player talking to the given NPC.</param>
 		public virtual void OnHover(NPC npc, Player player) { }
 
 		/// <summary>
-		/// You should make this button do something when it gets clicked on...<b>NOW!</b><br/>
-		/// <br/>
-		/// ...what? were you expectin' something more? something a bit less jokey?<br/>
-		/// have you forgotten who MADE this API? I'm, like, 70% jokes and 30% snark<br/>
-		/// <br/>
-		/// ...and 5% wonderin' why you're still readin' this<br/>
-		/// <br/>
-		/// [Required Field]<br/>
+		/// Self-explanatory.<br/>
+		/// <b>Mandatory.</b><br/>
 		/// </summary>
 		/// <param name="npc">The NPC the given player is talking to.</param>
 		/// <param name="player">The player talking to the given NPC.</param>

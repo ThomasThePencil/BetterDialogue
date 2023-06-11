@@ -35,7 +35,7 @@ namespace BetterDialogue.UI.ExampleChatButtonChanges
 			return materialFound;
 		}
 
-		public override void OverrideColor(ChatButton chatButton, NPC npc, Player player, ref Color buttonTextColor)
+		public override void ModifyColor(ChatButton chatButton, NPC npc, Player player, ref Color buttonTextColor)
 		{
 			if (chatButton != ChatButton.GuideCraftHelp)
 				return;
