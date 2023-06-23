@@ -35,11 +35,16 @@ namespace BetterDialogue.UI.ExampleChatButtonChanges
 			return materialFound;
 		}
 
+		// We want to make the Guide's crafting button not allow clicking on it if the player doesn't have something in their inventory which can be used as a material.
+
 		public override void ModifyColor(ChatButton chatButton, NPC npc, Player player, ref Color buttonTextColor)
 		{
+			// When modifying a given chat button, it is virtually necessary to check if the button is the target button before doing anything else.
+			// Failing to do this may have unintended consequences on buttons which you didn't mean to modify.
 			if (chatButton != ChatButton.GuideCraftHelp)
 				return;
 
+			// Here, we make the button colored gray if PlayerHasMaterialItem returns false, so that it's clear that it shouldn't work.
 			if (!PlayerHasMaterialItem(player))
 				buttonTextColor = Color.Gray;
 		}
@@ -49,6 +54,7 @@ namespace BetterDialogue.UI.ExampleChatButtonChanges
 			if (chatButton != ChatButton.GuideCraftHelp)
 				return true;
 
+			// Here, we return whatever PlayerHasMaterialItem returns --- meaning the button can't be (successfully) clicked if a material item isn't in the player's inventory.
 			return PlayerHasMaterialItem(player);
 		}
 	}

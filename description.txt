@@ -31,7 +31,7 @@ v1.0:
 
 ----- CHANGELOGS ABOVE ----
 
-...huh? what's that? what does VSC stand for?
+huh? what's that? what does VSC stand for?
 
 if anyone knows, they know
 if anyone asks, Victorian Sugar Cookies
