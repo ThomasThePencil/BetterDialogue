@@ -16,7 +16,20 @@ as a framework for chat modification, Dialect comes pre-equipped with the follow
 
 (NOTE: this mod assumes that you're willin' to use it as a dependency. if this isn't your speed, I wouldn't bother; the mod has NO Mod.Call support whatsoever, and I don't plan to add any, as doin' so would defeat the point)
 
+----- CHANGELOGS BELOW ----
 
+v1.0.2:
+- changed how the shop button works so that modded NPCs can be properly made to work
+- added an example for how to make modded NPCs able to be shopped at, which also automagically calls the relevant method for all Example Mod shop NPCs
+- the mod should now more effectively get its data outta your way on unload
+
+v1.0.1:
+- fixed the mod's icon bein' too small
+
+v1.0:
+- initial release
+
+----- CHANGELOGS ABOVE ----
 
 ...huh? what's that? what does VSC stand for?
 

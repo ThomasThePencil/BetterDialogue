@@ -15,7 +15,9 @@ namespace BetterDialogue
 			Instance = this;
 		}
 
-		public static void RegisterNPCToShopIndex(int npcType, int shopIndex) => ShopButton.NPCToShopIndex.Add(npcType, shopIndex);
+		public static void RegisterShoppableNPC(int npcType) => ShopButton.ShoppableNPCs.Add(npcType);
+
+		public static void UnregisterShoppableNPC(int npcType) => ShopButton.ShoppableNPCs.Remove(npcType);
 
 		public static DialogueStyle CurrentActiveStyle
 		{
@@ -35,9 +37,16 @@ namespace BetterDialogue
 		{
 			DialogueStyleLoader.Load();
 			ChatButtonLoader.Load();
-			ShopButton.ResetShopIndexDictionary();
+			ShopButton.ResetShoppableNPCList();
 
 			On_Main.GUIChatDrawInner += (orig, self) => CurrentActiveStyle.DrawDialogueStyle();
+		}
+
+		public override void Unload()
+		{
+			DialogueStyleLoader.Unload();
+			ChatButtonLoader.Unload();
+			ShopButton.UnloadShoppableNPCList();
 		}
 	}
 }
