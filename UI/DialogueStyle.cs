@@ -90,8 +90,8 @@ namespace BetterDialogue.UI
 		/// <summary>
 		/// Can be used to draw your dialogue box style in a special way that precedes, and can overrule, the normal draw method for dialogue styles.<br/>
 		/// Called every frame that a dialogue box is active.<br/>
-		/// Returns <see langword="true"/> by default, return <see langword="false"/> to prevent the normal draw method from running.<br/>
-		/// Does not prevent <see cref="PostDraw(NPC, Player, List{ChatButton})"/> from running.<br/>
+		/// Returns <see langword="true"/> by default, return <see langword="false"/> to prevent <see cref="Draw"/> from running.<br/>
+		/// Does not prevent <see cref="PostDraw"/> from running.<br/>
 		/// </summary>
 		/// <param name="npc">
 		/// The NPC currently speaking with the given player.<br/>
@@ -105,8 +105,25 @@ namespace BetterDialogue.UI
 		public virtual bool PreDraw(NPC npc, Player player, List<ChatButton> activeChatButtons) => true;
 
 		/// <summary>
-		/// Can be used to draw extra things on your dialogue box style regardless of the return value of <see cref="PreDraw(NPC, Player, List{ChatButton})"/>.<br/>
-		/// Called every frame that a dialogue box is active.<br/>
+		/// Can be used to draw extra things on your dialogue box style.<br/>
+		/// Not called if <see cref="PreDraw"/> returns <see langword="false"/>.<br/>
+		/// Otherwise, called every frame that a dialogue box is active.<br/>
+		/// By default, calls <see cref="DrawClassic"/>, which is the method used to draw the default dialogue styles.<br/>
+		/// </summary>
+		/// <param name="npc">
+		/// The NPC currently speaking with the given player.<br/>
+		/// </param>
+		/// <param name="player">
+		/// The player currently speaking with the given NPC.<br/>
+		/// </param>
+		/// <param name="activeChatButtons">
+		/// A list of all currently-active chat buttons at the time of drawing.<br/>
+		/// </param>
+		public virtual void Draw(NPC npc, Player player, List<ChatButton> activeChatButtons) => DrawClassic(npc, player, activeChatButtons);
+
+		/// <summary>
+		/// Can be used to draw extra things on your dialogue box style.<br/>
+		/// Called every frame that a dialogue window is active, regardless of the return value of <see cref="PreDraw"/>.<br/>
 		/// </summary>
 		/// <param name="npc">
 		/// The NPC currently speaking with the given player.<br/>
@@ -118,40 +135,5 @@ namespace BetterDialogue.UI
 		/// A list of all currently-active chat buttons at the time of drawing.<br/>
 		/// </param>
 		public virtual void PostDraw(NPC npc, Player player, List<ChatButton> activeChatButtons) { }
-
-		/// <summary>
-		/// Not recommended for public use, but left public just in case you know what you're doing and want to use it for some reason.<br/>
-		/// Performs all code related to drawing dialogue styles. In order...<br/>
-		/// 1.) Checks to ensure that the local player is talking to an NPC.<br/>
-		/// 1.) Calls <see cref="PreDraw(NPC, Player, List{ChatButton})"/>. If <see cref="PreDraw(NPC, Player, List{ChatButton})"/> returns <see langword="false"/>, skips step 3.<br/>
-		/// 2.) Calls <see cref="DrawClassic(NPC, Player, List{ChatButton})(NPC, Player, List{ChatButton})"/>.<br/>
-		/// 3.) Calls <see cref="PostDraw(NPC, Player, List{ChatButton})"/>.<br/>
-		/// </summary>
-		public void DrawDialogueStyle() {
-			Player player = Main.LocalPlayer;
-			if (player.TalkNPC is null)
-				return;
-			List<ChatButton> activeChatButtons = new List<ChatButton>();
-			ChatButtonLoader.VerifyExitButtonPosition();
-			foreach (ChatButton button in ChatButtonLoader.ChatButtons)
-			{
-				bool active = button.IsActive(player.TalkNPC, player);
-				foreach (GlobalChatButton global in ChatButtonLoader.ChatButtonGlobals)
-				{
-					bool? activeFromGlobal = global.IsActive(button, player.TalkNPC, player);
-					if (activeFromGlobal.HasValue)
-						active &= activeFromGlobal.Value;
-				}
-				if (active)
-					activeChatButtons.Add(button);
-			}
-			if (!PreDraw(player.TalkNPC, player, activeChatButtons))
-				goto PostDraw;
-
-			DrawClassic(player.TalkNPC, player, activeChatButtons);
-
-			PostDraw:
-			PostDraw(player.TalkNPC, player, activeChatButtons);
-		}
 	}
 }

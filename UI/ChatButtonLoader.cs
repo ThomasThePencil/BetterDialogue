@@ -16,6 +16,7 @@ namespace BetterDialogue.UI
 				ChatButton.Sign,
 				ChatButton.Pet,
 				ChatButton.Shop,
+				ChatButton.TownNPCHappiness,
 				ChatButton.GuideProgressHelp,
 				ChatButton.GuideCraftHelp,
 				ChatButton.NurseHeal,

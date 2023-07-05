@@ -34,6 +34,7 @@ namespace BetterDialogue.UI
 		public static TheOneSignButton Sign { get; private set; } = new TheOneSignButton();
 		public static PetButton Pet { get; private set; } = new PetButton();
 		public static ShopButton Shop { get; private set; } = new ShopButton();
+		public static HappinessButton TownNPCHappiness { get; private set; } = new HappinessButton();
 		public static GuideHelpButton GuideProgressHelp { get; private set; } = new GuideHelpButton();
 		public static GuideCraftingButton GuideCraftHelp { get; private set; } = new GuideCraftingButton();
 		public static NurseHealButton NurseHeal { get; private set; } = new NurseHealButton();
