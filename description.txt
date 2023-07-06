@@ -9,7 +9,7 @@ it's instead intended, most predominantly, for use by other mods as a way to add
 if you wanna learn how to use it, just check out the GitHub page (helpfully provided as the "homepage" or linked on the Steam Workshop page you subbed on) and get to workin'!
 
 as a framework for chat modification, Dialect comes pre-equipped with the followin' useful things to help you learn:
-- well-documented chat button modification examples that even apply in-game for ease of demonstration!
+- a well-documented chat button modification example that even applies in-game for ease of demonstration!
 - thorough XML documentation on every currently-available aspect of Dialect's API!
 - a freshened-up version of the vanilla dialogue style as an alternative option, for those just a little tired of the vanilla flair!
 - a few configuration options to generally apply to dialogue styles! note that dialogue styles don't HAVE to obey these; they just CAN (and SHOULD, though I can't force any of 'em to)
@@ -17,6 +17,24 @@ as a framework for chat modification, Dialect comes pre-equipped with the follow
 (NOTE: this mod assumes that you're willin' to use it as a dependency. if this isn't your speed, I wouldn't bother; the mod has NO Mod.Call support whatsoever, and I don't plan to add any, as doin' so would defeat the point)
 
 ----- CHANGELOGS BELOW ----
+
+v1.1.1:
+- added the ability for dialogue styles to add a flat amount to the width of dialogue boxes through the new BoxWidthModifier property
+- added a ForceActive hook for dialogue styles and global styles which can allow you to set a certain dialogue style as active without changin' the one you already have selected
+- if Dialogue Panel Rework is also enabled, Dialect's window now overrides DPR's for supported NPCs (unsupported NPCs will still use DPR's as appropriate)
+- fixed happiness button displayin' for town pets/slimes
+- fixed happiness button displayin' far too early in button order
+- fixed an oversight causin' chat button color hooks to never be called in DrawClassicButtons
+- added even more documentation
+
+v1.1 ~ The Compatibility Update:
+- added a list in the mod class called SupportedNPCs. this list contains the numerical IDs of every NPC that can be spoken with which works with Dialect. if an NPC isn't in this list, the vanilla dialogue window is used. this should ease a lot of compatibility issues to a certain degree
+- added GlobalDialogueStyle, which contains PreDraw and PostDraw hooks. currently slightly basic, but I want to be careful with this, so unless other new features for global styles are requested, this will be all
+- moved DrawDialogueStyle to DialogueStyleLoader, renamed it to DrawActiveDialogueStyle, and added global style support to it
+- DialogueStyle now has a Draw method which you can override; by default, this simply calls DrawClassic
+- removed the Example Mod activations since they're useless
+- fixed an oversight resultin' in the town NPC happiness button never bein' added to the list of active buttons
+- substantially improved documentation in multiple places
 
 v1.0.2:
 - changed how the shop button works so that modded NPCs can be properly made to work

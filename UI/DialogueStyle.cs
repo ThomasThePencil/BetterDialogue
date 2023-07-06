@@ -88,6 +88,25 @@ namespace BetterDialogue.UI
 		public virtual DynamicSpriteFont ChatButtonFont => DialogueFont;
 
 		/// <summary>
+		/// Allows you to "force" this dialogue style to be active conditionally.<br/>
+		/// Does not change the player's existing chosen dialogue style.<br/>
+		/// Returns <see langword="false"/> by default, return <see langword="true"/> to force this style to be active.<br/>
+		/// </summary>
+		/// <param name="npc">
+		/// The NPC currently speaking with the given player.<br/>
+		/// </param>
+		/// <param name="player">
+		/// The player currently speaking with the given NPC.<br/>
+		/// </param>
+		public virtual bool ForceActive(NPC npc, Player player) => false;
+
+		/// <summary>
+		/// Allows a dialogue style to flatly increase or decrease the width of dialogue windows, in 30x30 tiles, with it active.<br/>
+		/// Positive numbers increase the width. Negative numbers decrease it. Defaults to 0.<br/>
+		/// </summary>
+		public virtual int BoxWidthModifier => 0;
+
+		/// <summary>
 		/// Can be used to draw your dialogue box style in a special way that precedes, and can overrule, the normal draw method for dialogue styles.<br/>
 		/// Called every frame that a dialogue box is active.<br/>
 		/// Returns <see langword="true"/> by default, return <see langword="false"/> to prevent <see cref="Draw"/> from running.<br/>

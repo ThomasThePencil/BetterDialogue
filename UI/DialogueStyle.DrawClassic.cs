@@ -84,13 +84,14 @@ namespace BetterDialogue.UI
 			}
 
 			BetterDialogueConfig config = ModContent.GetInstance<BetterDialogueConfig>();
-			int chatBackdropWidth = (config.DialogueBoxWidth + 2) * 30;
+			int chatBackdropWidth = (config.DialogueBoxWidth + BetterDialogue.CurrentActiveStyle.BoxWidthModifier + 2) * 30;
 			#region Draw the backdrop of the dialogue style
 			for (int y = 0; y <= amountOfLines + 1; y++)
 			{
-				for (int x = 0; x <= config.DialogueBoxWidth + 1; x++)
+				int widthInTiles = config.DialogueBoxWidth + BetterDialogue.CurrentActiveStyle.BoxWidthModifier + 1;
+				for (int x = 0; x <= widthInTiles; x++)
 				{
-					int targetSheetTileX = x == 0 ? 0 : (x < config.DialogueBoxWidth + 1 ? 32 : 64);
+					int targetSheetTileX = x == 0 ? 0 : (x < widthInTiles ? 32 : 64);
 					int targetSheetTileY = y == 0 ? 0 : (y < amountOfLines + 1 ? 32 : 64);
 					Main.spriteBatch.Draw(
 						BetterDialogue.CurrentActiveStyle.DialogueBoxTileSheet,
@@ -258,7 +259,7 @@ namespace BetterDialogue.UI
 		{
 			float y = 130 + numLines * 30;
 			BetterDialogueConfig config = ModContent.GetInstance<BetterDialogueConfig>();
-			int chatBackdropWidth = (config.DialogueBoxWidth + 2) * 30;
+			int chatBackdropWidth = (config.DialogueBoxWidth + BetterDialogue.CurrentActiveStyle.BoxWidthModifier + 2) * 30;
 			int num = Main.screenWidth / 2 - chatBackdropWidth / 2 + 30;
 			Player localPlayer = Main.player[Main.myPlayer];
 			NPC talkNPC = localPlayer.TalkNPC;
@@ -270,7 +271,7 @@ namespace BetterDialogue.UI
 				DynamicSpriteFont buttonTextFont = BetterDialogue.CurrentActiveStyle.ChatButtonFont;
 				Vector2 buttonTextScale = new Vector2(0.9f);
 				Vector2 buttonTextSize = ChatManager.GetStringSize(buttonTextFont, buttonText, buttonTextScale);
-				Color baseColor = chatColor;
+				Color baseColor = ChatButtonLoader.GetColor(button, talkNPC, localPlayer);
 				Color black = Color.Black;
 				Vector2 vector4 = new Vector2(1f);
 				float hoverScaleModifier = 1.2f;
@@ -338,7 +339,7 @@ namespace BetterDialogue.UI
 				  | (_originalText != text)
 				  | (PlayerInput.CurrentInputMode != _lastInputMode)
 				  | (_originalColor != baseColor)
-				  | (_lastBoxWidth != Config.DialogueBoxWidth)
+				  | (_lastBoxWidth != Config.DialogueBoxWidth + BetterDialogue.CurrentActiveStyle.BoxWidthModifier)
 				  | (_lastBoxMaxLines != Config.DialogueBoxMaximumLines))
 				{
 					_originalText = text;
@@ -346,11 +347,11 @@ namespace BetterDialogue.UI
 					_lastScreenWidth = Main.screenWidth;
 					_lastScreenHeight = Main.screenHeight;
 					_lastInputMode = PlayerInput.CurrentInputMode;
-					_lastBoxWidth = Config.DialogueBoxWidth;
+					_lastBoxWidth = Config.DialogueBoxWidth + BetterDialogue.CurrentActiveStyle.BoxWidthModifier;
 					_lastBoxMaxLines = Config.DialogueBoxMaximumLines;
 					text = Lang.SupportGlyphs(text);
 
-					int textWidth = ((Config.DialogueBoxWidth + 2) * 30) - 40;
+					int textWidth = ((Config.DialogueBoxWidth + BetterDialogue.CurrentActiveStyle.BoxWidthModifier + 2) * 30) - 40;
 					TextLines = Utils.WordwrapStringSmart(text, baseColor, FontAssets.MouseText.Value, textWidth, Config.DialogueBoxMaximumLines);
 					AmountOfLines = TextLines.Count;
 				}

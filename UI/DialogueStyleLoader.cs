@@ -58,7 +58,7 @@ namespace BetterDialogue.UI
 			Player player = Main.LocalPlayer;
 			
 			List<ChatButton> activeChatButtons = new List<ChatButton>();
-			ChatButtonLoader.VerifyExitButtonPosition();
+			ChatButtonLoader.VerifyExitAndHappinessButtonPositions();
 			foreach (ChatButton button in ChatButtonLoader.ChatButtons)
 			{
 				bool active = button.IsActive(player.TalkNPC, player);

@@ -1,4 +1,4 @@
 displayName = [VSC Framework] Dialect
 author = the pixelated Sign Painter
-version = 1.0.2
+version = 1.1.1
 homepage = https://github.com/ThomasThePencil/BetterDialogue

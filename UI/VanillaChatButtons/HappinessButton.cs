@@ -12,7 +12,7 @@ namespace BetterDialogue.UI.VanillaChatButtons
 
 		public override string Description(NPC npc, Player player) => "How happy might " + npc.GivenName + " be with their current living arrangements? Only one way to find out...";
 
-		public override bool IsActive(NPC npc, Player player) => npc.townNPC && !Main.remixWorld;
+		public override bool IsActive(NPC npc, Player player) => npc.townNPC && !NPCID.Sets.IsTownPet[npc.type] && !Main.remixWorld;
 
 		public override void OnClick(NPC npc, Player player)
 		{

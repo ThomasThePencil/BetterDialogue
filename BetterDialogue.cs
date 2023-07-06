@@ -45,6 +45,12 @@ namespace BetterDialogue
 		{
 			get
 			{
+				foreach (DialogueStyle style in DialogueStyleLoader.DialogueStyles)
+				{
+					if (style.ForceActive(Main.LocalPlayer.TalkNPC, Main.LocalPlayer))
+						return style;
+				}
+
 				if (DialogueStyleLoader.DialogueStyleDisplayNames.Contains(ModContent.GetInstance<BetterDialogueConfig>().DialogueStyle))
 					return DialogueStyleLoader.DialogueStyles.FirstOrDefault(x => x.DisplayName == ModContent.GetInstance<BetterDialogueConfig>().DialogueStyle);
 				else

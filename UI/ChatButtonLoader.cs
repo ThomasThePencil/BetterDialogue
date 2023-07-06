@@ -16,7 +16,6 @@ namespace BetterDialogue.UI
 				ChatButton.Sign,
 				ChatButton.Pet,
 				ChatButton.Shop,
-				ChatButton.TownNPCHappiness,
 				ChatButton.GuideProgressHelp,
 				ChatButton.GuideCraftHelp,
 				ChatButton.NurseHeal,
@@ -32,6 +31,7 @@ namespace BetterDialogue.UI
 				ChatButton.DD2HelpButton,
 				ChatButton.OldManCurse,
 				ChatButton.Exit,
+				ChatButton.TownNPCHappiness,
 			};
 			ChatButtonGlobals = new List<GlobalChatButton>();
 		}
@@ -41,21 +41,20 @@ namespace BetterDialogue.UI
 			ChatButtonGlobals = null;
 		}
 
-		internal static void VerifyExitButtonPosition()
+		internal static void VerifyExitAndHappinessButtonPositions()
 		{
-			if (ChatButtons.Last() != ChatButton.Exit)
-			{
-				ChatButtons.Remove(ChatButton.Exit);
-				ChatButtons.Add(ChatButton.Exit);
-			}
+			ChatButtons.Remove(ChatButton.Exit);
+			ChatButtons.Add(ChatButton.Exit);
+			ChatButtons.Remove(ChatButton.TownNPCHappiness);
+			ChatButtons.Add(ChatButton.TownNPCHappiness);
 		}
 
 		/// <summary>
-		/// 
+		/// Fetches the display text of the given chat button, accounting for all global adjustments.<br/>
 		/// </summary>
-		/// <param name="chatButton"></param>
-		/// <param name="npc"></param>
-		/// <param name="player"></param>
+		/// <param name="chatButton">The chat button to fetch the display text of.</param>
+		/// <param name="npc">The NPC the given player is talking to.</param>
+		/// <param name="player">The player talking to the given NPC.</param>
 		/// <returns>
 		/// The text that this <see cref="ChatButton"/> should display.<br/>
 		/// </returns>
@@ -69,6 +68,34 @@ namespace BetterDialogue.UI
 			return buttonText;
 		}
 
+		/// <summary>
+		/// Fetches the description of the given chat button, accounting for all global adjustments.<br/>
+		/// </summary>
+		/// <param name="chatButton">The chat button to fetch the description of.</param>
+		/// <param name="npc">The NPC the given player is talking to.</param>
+		/// <param name="player">The player talking to the given NPC.</param>
+		/// <returns>
+		/// The description that this <see cref="ChatButton"/> should have.<br/>
+		/// </returns>
+		public static string GetDescription(ChatButton chatButton, NPC npc, Player player)
+		{
+			string descriptionText = chatButton.Description(npc, player);
+			foreach (GlobalChatButton global in ChatButtonGlobals)
+			{
+				global.ModifyDescription(chatButton, npc, player, ref descriptionText);
+			}
+			return descriptionText;
+		}
+
+		/// <summary>
+		/// Fetches the intended color of the given chat button, accounting for all global adjustments and the active style's base chat button color.<br/>
+		/// </summary>
+		/// <param name="chatButton">The chat button to fetch the description of.</param>
+		/// <param name="npc">The NPC the given player is talking to.</param>
+		/// <param name="player">The player talking to the given NPC.</param>
+		/// <returns>
+		/// The description that this <see cref="ChatButton"/> should have.<br/>
+		/// </returns>
 		public static Color GetColor(ChatButton chatButton, NPC npc, Player player)
 		{
 			Color buttonColor = BetterDialogue.CurrentActiveStyle.ChatButtonColor;
