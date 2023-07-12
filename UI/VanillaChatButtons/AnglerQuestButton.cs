@@ -10,6 +10,8 @@ namespace BetterDialogue.UI.VanillaChatButtons
 	{
 		public override string Text(NPC npc, Player player) => Lang.inter[64].Value;
 
+		public override double Priority => 6.0;
+
 		public override string Description(NPC npc, Player player) => "See what " + npc.GivenName + " needs you to go fetch for him today.";
 
 		public override bool IsActive(NPC npc, Player player) => npc.type == NPCID.Angler;

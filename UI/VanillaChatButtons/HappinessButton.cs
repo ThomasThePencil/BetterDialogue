@@ -10,6 +10,8 @@ namespace BetterDialogue.UI.VanillaChatButtons
 	{
 		public override string Text(NPC npc, Player player) => Language.GetTextValue("UI.NPCCheckHappiness");
 
+		public override double Priority => 100.0;
+
 		public override string Description(NPC npc, Player player) => "How happy might " + npc.GivenName + " be with their current living arrangements? Only one way to find out...";
 
 		public override bool IsActive(NPC npc, Player player) => npc.townNPC && !NPCID.Sets.IsTownPet[npc.type] && !Main.remixWorld;

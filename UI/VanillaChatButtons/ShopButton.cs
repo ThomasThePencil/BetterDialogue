@@ -45,6 +45,8 @@ namespace BetterDialogue.UI.VanillaChatButtons
 
 		public override string Text(NPC npc, Player player) => Lang.inter[28].Value;
 
+		public override double Priority => 2.0;
+
 		public override string Description(NPC npc, Player player) => "See what " + npc.GivenName + " has for sale.";
 
 		public override bool IsActive(NPC npc, Player player) => ShoppableNPCs.Contains(npc.type);

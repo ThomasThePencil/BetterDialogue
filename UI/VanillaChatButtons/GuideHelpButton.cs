@@ -531,6 +531,8 @@ namespace BetterDialogue.UI.VanillaChatButtons
 
 		public override string Text(NPC npc, Player player) => Lang.inter[51].Value;
 
+		public override double Priority => 3.0;
+
 		public override string Description(NPC npc, Player player) => npc.GivenName + " has a wealth of useful information about how to progress! If you need assistance, he's your guy!";
 
 		public override bool IsActive(NPC npc, Player player) => npc.type == NPCID.Guide;

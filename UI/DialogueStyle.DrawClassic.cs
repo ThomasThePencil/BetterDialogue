@@ -107,7 +107,7 @@ namespace BetterDialogue.UI
 						),
 						someShadeOfGray,
 						0f,
-						default(Vector2),
+						default,
 						1f,
 						SpriteEffects.None,
 						0f
@@ -263,7 +263,7 @@ namespace BetterDialogue.UI
 			int num = Main.screenWidth / 2 - chatBackdropWidth / 2 + 30;
 			Player localPlayer = Main.player[Main.myPlayer];
 			NPC talkNPC = localPlayer.TalkNPC;
-			Vector2 buttonOrigin = new Vector2(num, y);
+			Vector2 originalButtonOrigin = new Vector2(num, y);
 			for (int i = 0; i < chatButtons.Count; i++)
 			{
 				ChatButton button = chatButtons[i];
@@ -278,9 +278,12 @@ namespace BetterDialogue.UI
 				if (buttonTextSize.X > 260f)
 					vector4.X *= 260f / buttonTextSize.X;
 
+				Vector2 modifiedButtonOrigin = originalButtonOrigin;
+				ChatButtonLoader.ModifyPosition(button, talkNPC, localPlayer, ref modifiedButtonOrigin);
+
 				button.HoverBox = new Rectangle(
-					(int)buttonOrigin.X,
-					(int)buttonOrigin.Y,
+					(int)modifiedButtonOrigin.X,
+					(int)modifiedButtonOrigin.Y,
 					(int)(buttonTextSize * buttonTextScale * vector4.X).X,
 					(int)(buttonTextSize * buttonTextScale * vector4.X).Y
 				);
@@ -303,7 +306,7 @@ namespace BetterDialogue.UI
 					Main.spriteBatch,
 					buttonTextFont,
 					buttonText,
-					buttonOrigin + buttonTextSize * vector4 * 0.5f,
+					modifiedButtonOrigin + buttonTextSize * vector4 * 0.5f,
 					baseColor,
 					button.IsHovered ? Color.Brown : Color.Black,
 					0f,
@@ -312,7 +315,7 @@ namespace BetterDialogue.UI
 				);
 
 				// Prepare the origin of the next button before the next cycle begins, since it's based on the end of the previous button's text.
-				buttonOrigin.X += buttonTextSize.X * vector4.X + 30f;
+				originalButtonOrigin.X += buttonTextSize.X * vector4.X + 30f;
 			}
 		}
 

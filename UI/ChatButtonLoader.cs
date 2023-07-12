@@ -41,14 +41,6 @@ namespace BetterDialogue.UI
 			ChatButtonGlobals = null;
 		}
 
-		internal static void VerifyExitAndHappinessButtonPositions()
-		{
-			ChatButtons.Remove(ChatButton.Exit);
-			ChatButtons.Add(ChatButton.Exit);
-			ChatButtons.Remove(ChatButton.TownNPCHappiness);
-			ChatButtons.Add(ChatButton.TownNPCHappiness);
-		}
-
 		/// <summary>
 		/// Fetches the display text of the given chat button, accounting for all global adjustments.<br/>
 		/// </summary>
@@ -109,6 +101,30 @@ namespace BetterDialogue.UI
 			return buttonColor;
 		}
 
+		/// <summary>
+		/// Fetches the intended origin position of the given chat button, accounting for all global adjustments.<br/>
+		/// </summary>
+		/// <param name="chatButton">The chat button to fetch the origin position of.</param>
+		/// <param name="npc">The NPC the given player is talking to.</param>
+		/// <param name="player">The player talking to the given NPC.</param>
+		/// <returns>
+		/// The description that this <see cref="ChatButton"/> should have.<br/>
+		/// </returns>
+		public static void ModifyPosition(ChatButton chatButton, NPC npc, Player player, ref Vector2 position)
+		{
+			foreach (GlobalChatButton global in ChatButtonGlobals)
+			{
+				global.ModifyPosition(chatButton, npc, player, ref position);
+			}
+			chatButton.ModifyPosition(npc, player, ref position);
+		}
+
+		/// <summary>
+		/// Performs all possible on-click actions for the given chat button.<br/>
+		/// </summary>
+		/// <param name="chatButton">The chat button to perform all on-click actions of.</param>
+		/// <param name="npc">The NPC the given player is talking to.</param>
+		/// <param name="player">The player talking to the given NPC.</param>
 		public static void OnClick(ChatButton chatButton, NPC npc, Player player)
 		{
 			foreach (GlobalChatButton global in ChatButtonGlobals)
@@ -122,7 +138,6 @@ namespace BetterDialogue.UI
 			{
 				global.OnClick(chatButton, npc, player);
 			}
-			return;
 		}
 	}
 }

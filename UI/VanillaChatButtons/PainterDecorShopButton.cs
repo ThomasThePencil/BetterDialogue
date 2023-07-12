@@ -10,6 +10,8 @@ namespace BetterDialogue.UI.VanillaChatButtons
 	{
 		public override string Text(NPC npc, Player player) => Language.GetTextValue("GameUI.PainterDecor");
 
+		public override double Priority => 11.0;
+
 		public override string Description(NPC npc, Player player) => "See what " + npc.GivenName + " has for sale.\n...again.";
 
 		public override bool IsActive(NPC npc, Player player) => npc.type == NPCID.Painter;

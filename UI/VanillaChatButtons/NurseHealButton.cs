@@ -90,6 +90,8 @@ namespace BetterDialogue.UI.VanillaChatButtons
 			}
 		}
 
+		public override double Priority => 5.0;
+
 		public override Color? OverrideColor(NPC npc, Player player)
 		{
 			HealPrice(npc, player, out _, out int platinumCost, out int goldCost, out int silverCost, out int copperCost);

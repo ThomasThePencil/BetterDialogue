@@ -9,6 +9,8 @@ namespace BetterDialogue.UI.VanillaChatButtons
 	{
 		public override string Text(NPC npc, Player player) => Main.editSign ? Lang.inter[47].Value : Lang.inter[48].Value;
 
+		public override double Priority => 0.0;
+
 		public override string Description(NPC npc, Player player) => "Close the chat menu.";
 
 		public override bool IsActive(NPC npc, Player player) => player.sign != -1;

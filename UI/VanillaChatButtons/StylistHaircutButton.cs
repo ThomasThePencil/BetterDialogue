@@ -8,6 +8,8 @@ namespace BetterDialogue.UI.VanillaChatButtons
 	{
 		public override string Text(NPC npc, Player player) => Language.GetTextValue("GameUI.HairStyle");
 
+		public override double Priority => 12.0;
+
 		public override string Description(NPC npc, Player player) => "Bored with your scalp? Need a new \'do? " + npc.GivenName + "\'s the snazzy hair stylist for you!";
 
 		public override bool IsActive(NPC npc, Player player) => npc.type == NPCID.Stylist;

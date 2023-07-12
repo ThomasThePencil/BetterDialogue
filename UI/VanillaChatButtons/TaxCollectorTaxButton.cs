@@ -74,6 +74,8 @@ namespace BetterDialogue.UI.VanillaChatButtons
 			return focusText + text2 + "        ";
 		}
 
+		public override double Priority => 14.0;
+
 		public override Color? OverrideColor(NPC npc, Player player)
 		{
 			CollectedTaxes(npc, player, out int platinumTaxMoney, out int goldTaxMoney, out int silverTaxMoney, out int copperTaxMoney);

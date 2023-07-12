@@ -13,7 +13,7 @@ namespace BetterDialogue.UI
 {
 	/// <summary>
 	/// The class used to store existing and newly-added dialogue styles.<br/>
-	/// The only thing you will need to do with this class, for the most part, is call Register.<br/>
+	/// You typically won't need to do anything with this class.<br/>
 	/// </summary>
 	public static class DialogueStyleLoader
 	{
@@ -43,7 +43,7 @@ namespace BetterDialogue.UI
 		}
 
 		/// <summary>
-		/// Not recommended for public use, but left public just in case you know what you're doing and want to use it for some reason.<br/>
+		/// Not recommended for public use, but left public just in case you know what you're doing and need to use it for some reason.<br/>
 		/// Performs all code related to drawing dialogue styles. In order...<br/>
 		/// 1.) Verifies that the Exit button is in the last button space, and moves it there if it is not.
 		/// 1.) Calls <see cref="GlobalDialogueStyle.PreDraw"/> for all applicable global styles. If any of them return <see langword="false"/>, skip to step 4.
@@ -58,8 +58,7 @@ namespace BetterDialogue.UI
 			Player player = Main.LocalPlayer;
 			
 			List<ChatButton> activeChatButtons = new List<ChatButton>();
-			ChatButtonLoader.VerifyExitAndHappinessButtonPositions();
-			foreach (ChatButton button in ChatButtonLoader.ChatButtons)
+			foreach (ChatButton button in ChatButtonLoader.ChatButtons.OrderBy(x => x.Priority))
 			{
 				bool active = button.IsActive(player.TalkNPC, player);
 				foreach (GlobalChatButton global in ChatButtonLoader.ChatButtonGlobals)

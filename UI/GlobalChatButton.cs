@@ -67,6 +67,16 @@ namespace BetterDialogue.UI
 		public virtual bool? IsActive(ChatButton chatButton, NPC npc, Player player) => null;
 
 		/// <summary>
+		/// Allows you to modify the draw origin of the given button before it is properly drawn.<br/>
+		/// Can be used to move buttons elsewhere on certain dialogue styles or under certain conditions.<br/>
+		/// </summary>
+		/// <param name="chatButton">The chat button to modify the position of.</param>
+		/// <param name="npc">The NPC the given player is talking to.</param>
+		/// <param name="player">The player talking to the given NPC.</param>
+		/// <param name="position">The position that the button would be drawn at normally.</param>
+		public virtual void ModifyPosition(ChatButton chatButton, NPC npc, Player player, ref Vector2 position) { }
+
+		/// <summary>
 		/// Allows you to make chat buttons do additional things when hovered over.
 		/// </summary>
 		/// <param name="chatButton">The chat button to add new on-hover behavior to.</param>

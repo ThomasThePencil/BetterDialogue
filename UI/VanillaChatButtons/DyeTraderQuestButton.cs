@@ -8,6 +8,8 @@ namespace BetterDialogue.UI.VanillaChatButtons
 	{
 		public override string Text(NPC npc, Player player) => Lang.inter[107].Value;
 
+		public override double Priority => 7.0;
+
 		public override string Description(NPC npc, Player player) => npc.GivenName + " is seeking rare plants! Why not exchange them with him for special dyes not found anywhere else?";
 
 		public override bool IsActive(NPC npc, Player player) => npc.type == NPCID.DyeTrader;

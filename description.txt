@@ -18,16 +18,21 @@ as a framework for chat modification, Dialect comes pre-equipped with the follow
 
 ----- CHANGELOGS BELOW ----
 
+v1.1.2:
+- added a Priority property for all chat buttons which decides what order they're drawn/listed in; vanilla chat buttons have been updated accordingly with concrete priority values
+- added a ModifyPosition hook for (Global)ChatButton which allows modification of a button's draw position before it's drawn
+- added a bit more documentation
+
 v1.1.1:
 - added the ability for dialogue styles to add a flat amount to the width of dialogue boxes through the new BoxWidthModifier property
-- added a ForceActive hook for dialogue styles and global styles which can allow you to set a certain dialogue style as active without changin' the one you already have selected
+- added a ForceActive hook for (Global)DialogueStyle which can allow you to set a certain dialogue style as active without changin' the one you already have selected
 - if Dialogue Panel Rework is also enabled, Dialect's window now overrides DPR's for supported NPCs (unsupported NPCs will still use DPR's as appropriate)
 - fixed happiness button displayin' for town pets/slimes
 - fixed happiness button displayin' far too early in button order
 - fixed an oversight causin' chat button color hooks to never be called in DrawClassicButtons
 - added even more documentation
 
-v1.1 ~ The Compatibility Update:
+v1.1:
 - added a list in the mod class called SupportedNPCs. this list contains the numerical IDs of every NPC that can be spoken with which works with Dialect. if an NPC isn't in this list, the vanilla dialogue window is used. this should ease a lot of compatibility issues to a certain degree
 - added GlobalDialogueStyle, which contains PreDraw and PostDraw hooks. currently slightly basic, but I want to be careful with this, so unless other new features for global styles are requested, this will be all
 - moved DrawDialogueStyle to DialogueStyleLoader, renamed it to DrawActiveDialogueStyle, and added global style support to it

@@ -11,6 +11,8 @@ namespace BetterDialogue.UI.VanillaChatButtons
 	{
 		public override string Text(NPC npc, Player player) => Language.GetTextValue("GameUI.Music");
 
+		public override double Priority => 13.0;
+
 		public override string Description(NPC npc, Player player) => npc.GivenName + " loves to party, but even the best parties get stale if you don't mix up the beats every once in a while, yeah?";
 
 		public override bool IsActive(NPC npc, Player player)
