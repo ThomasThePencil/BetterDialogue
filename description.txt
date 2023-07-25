@@ -18,6 +18,9 @@ as a framework for chat modification, Dialect comes pre-equipped with the follow
 
 ----- CHANGELOGS BELOW ----
 
+v1.1.3:
+FINALLY fixed signs! signs and adjacent should now be wholly compatible with all of Dialect's changes and improvements
+
 v1.1.2:
 - added a Priority property for all chat buttons which decides what order they're drawn/listed in; vanilla chat buttons have been updated accordingly with concrete priority values
 - added a ModifyPosition hook for (Global)ChatButton which allows modification of a button's draw position before it's drawn

@@ -116,14 +116,22 @@ namespace BetterDialogue
 			};
 			ShopButton.ResetShoppableNPCList();
 
-			On_Main.GUIChatDrawInner += (orig, self) => {
-
+			On_Main.GUIChatDrawInner += (orig, self) =>
+			{
 				if (Main.LocalPlayer.TalkNPC is null)
-					return;
-				else if (!SupportedNPCs.Contains(Main.LocalPlayer.TalkNPC.type))
-					orig(self);
+				{
+					if (Main.LocalPlayer.sign == -1)
+						Main.npcChatText = "";
+					else
+						DialogueStyleLoader.DrawActiveDialogueStyle();
+				}
 				else
-					DialogueStyleLoader.DrawActiveDialogueStyle();
+				{
+					if (!SupportedNPCs.Contains(Main.LocalPlayer.TalkNPC.type))
+						orig(self);
+					else
+						DialogueStyleLoader.DrawActiveDialogueStyle();
+				}
 			};
 		}
 

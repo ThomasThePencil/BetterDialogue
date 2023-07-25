@@ -32,28 +32,35 @@ namespace BetterDialogue.UI
 
 		private static void DrawClassic(NPC npc, Player localPlayer, List<ChatButton> chatButtons)
 		{
-			bool playerIsTalkingToSomeone = localPlayer.talkNPC != -1;
-			if (!playerIsTalkingToSomeone)
+			bool playerIsTalkingToSomeone = npc is not null;
+			bool playerIsUsingASign = localPlayer.sign != -1;
+			if (!playerIsTalkingToSomeone && !playerIsUsingASign)
+			{
+				Main.npcChatText = "";
 				return;
+			}
 
 			Color someShadeOfGray = new Color(200, 200, 200, 200);
 			int mouseTextColor = (Main.mouseTextColor * 2 + 255) / 3;
 			Color baseTextColor = new Color(mouseTextColor, mouseTextColor, mouseTextColor, mouseTextColor);
 			bool flag = Main.InGameUI.CurrentState is UIVirtualKeyboard && PlayerInput.UsingGamepad;
 			string chatText = Main.npcChatText;
-			bool doYouHaveTheFuckingCokeIOrdered = Main.CanDryadPlayStardewAnimation(Main.LocalPlayer, npc);
-			if (npc.ai[0] == 24f && NPC.RerollDryadText == 2)
-				NPC.RerollDryadText = 1;
-
-			if (doYouHaveTheFuckingCokeIOrdered && NPC.RerollDryadText == 1 && npc.ai[0] != 24f && npc.type == NPCID.Dryad)
+			if (npc is not null)
 			{
-				NPC.RerollDryadText = 0;
-				Main.npcChatText = npc.GetChat();
-				NPC.PreventJojaColaDialog = true;
-			}
+				bool doYouHaveTheFuckingCokeIOrdered = Main.CanDryadPlayStardewAnimation(Main.LocalPlayer, npc);
+				if (npc.ai[0] == 24f && NPC.RerollDryadText == 2)
+					NPC.RerollDryadText = 1;
 
-			if (doYouHaveTheFuckingCokeIOrdered && !NPC.PreventJojaColaDialog)
-				chatText = Language.GetTextValue("StardewTalk.PlayerHasColaAndIsHoldingIt");
+				if (doYouHaveTheFuckingCokeIOrdered && NPC.RerollDryadText == 1 && npc.ai[0] != 24f && npc.type == NPCID.Dryad)
+				{
+					NPC.RerollDryadText = 0;
+					Main.npcChatText = npc.GetChat();
+					NPC.PreventJojaColaDialog = true;
+				}
+
+				if (doYouHaveTheFuckingCokeIOrdered && !NPC.PreventJojaColaDialog)
+					chatText = Language.GetTextValue("StardewTalk.PlayerHasColaAndIsHoldingIt");
+			}
 
 			Cache.PrepareCache(chatText, baseTextColor);
 			List<List<TextSnippet>> textLines = Cache.TextLines;
@@ -201,18 +208,10 @@ namespace BetterDialogue.UI
 
 			mouseTextColor = Main.mouseTextColor;
 			baseTextColor = new Color(mouseTextColor, (int)((double)mouseTextColor / 1.1), mouseTextColor / 2, mouseTextColor);
-			if (localPlayer.sign > -1)
-			{
-				chatButtons = new List<ChatButton>() {
-					ChatButton.Sign,
-					ChatButton.Exit
-				};
-			}
 
-			bool drawMoney = chatButtons.FirstOrDefault(x => x == ChatButton.TaxCollectorNeedsYOUToTakeYourDamnTaxesAlready && x.IsActive(npc, localPlayer)) != null;
-
-			// commented out because it straight-up doesn't work with this system
-			// NPCLoader.SetChatButtons(ref button1Info.Text, ref button2Info.Text);
+			bool drawMoney = false;
+			if (npc is not null)
+				drawMoney = chatButtons.FirstOrDefault(x => x == ChatButton.TaxCollectorNeedsYOUToTakeYourDamnTaxesAlready && x.IsActive(npc, localPlayer)) != null;
 
 			if (!flag)
 			{

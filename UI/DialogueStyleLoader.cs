@@ -58,17 +58,27 @@ namespace BetterDialogue.UI
 			Player player = Main.LocalPlayer;
 			
 			List<ChatButton> activeChatButtons = new List<ChatButton>();
-			foreach (ChatButton button in ChatButtonLoader.ChatButtons.OrderBy(x => x.Priority))
+			if (player.sign != -1)
 			{
-				bool active = button.IsActive(player.TalkNPC, player);
-				foreach (GlobalChatButton global in ChatButtonLoader.ChatButtonGlobals)
+				activeChatButtons = new List<ChatButton>() {
+					ChatButton.Sign,
+					ChatButton.Exit
+				};
+			}
+			else
+			{
+				foreach (ChatButton button in ChatButtonLoader.ChatButtons.OrderBy(x => x.Priority))
 				{
-					bool? activeFromGlobal = global.IsActive(button, player.TalkNPC, player);
-					if (activeFromGlobal.HasValue)
-						active &= activeFromGlobal.Value;
+					bool active = button.IsActive(player.TalkNPC, player);
+					foreach (GlobalChatButton global in ChatButtonLoader.ChatButtonGlobals)
+					{
+						bool? activeFromGlobal = global.IsActive(button, player.TalkNPC, player);
+						if (activeFromGlobal.HasValue)
+							active &= activeFromGlobal.Value;
+					}
+					if (active)
+						activeChatButtons.Add(button);
 				}
-				if (active)
-					activeChatButtons.Add(button);
 			}
 			foreach (GlobalDialogueStyle global in DialogueStyleGlobals)
 			{
