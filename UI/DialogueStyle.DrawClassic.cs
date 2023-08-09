@@ -41,8 +41,10 @@ namespace BetterDialogue.UI
 				return;
 			}
 
+			// at a cursory glance, this looks unfathomably dumb, but if I don't do this, the dialogue window adds unnecessary space between tiles on non-100% scales
 			Main.spriteBatch.End();
 			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null);
+
 			Color someShadeOfGray = new Color(200, 200, 200, 200);
 			int mouseTextColor = (Main.mouseTextColor * 2 + 255) / 3;
 			Color baseTextColor = new Color(mouseTextColor, mouseTextColor, mouseTextColor, mouseTextColor);
@@ -267,6 +269,7 @@ namespace BetterDialogue.UI
 			}
 
 			RestartVanillaSpriteBatch:
+			// now we can let the rest of the vanilla stuff happen as it would normally
 			Main.spriteBatch.End();
 			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.UIScaleMatrix);
 		}
