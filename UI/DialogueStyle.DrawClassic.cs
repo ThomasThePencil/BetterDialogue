@@ -239,12 +239,12 @@ namespace BetterDialogue.UI
 					{
 						text2 += " ";
 					}
-					float shopX = chatBackdropYOffset + chatBackdropHeight - tileDrawSize;
-					float shopButtonX = chatBackdropXOffset + tileDrawSize;
-					shopButtonX += (ChatManager.GetStringSize(FontAssets.MouseText.Value, text2, new Vector2(0.9f)).X - 20f) * chatScale;
+					float collectButtonY = chatBackdropYOffset + chatBackdropHeight - tileDrawSize;
+					float collectButtonX = chatBackdropXOffset + tileDrawSize;
+					collectButtonX += (ChatManager.GetStringSize(FontAssets.MouseText.Value, text2, new Vector2(0.9f)).X - 20f) * chatScale;
 					int taxMoney2 = localPlayer.taxMoney;
 					taxMoney2 = (int)((double)taxMoney2 / localPlayer.currentShoppingSettings.PriceAdjustment);
-					ItemSlot.DrawMoney(Main.spriteBatch, "", shopButtonX, shopX - (40f * chatScale), Utils.CoinsSplit(taxMoney2), horizontal: true);
+					DrawTaxMoneyScaled(Main.spriteBatch, "", collectButtonX, collectButtonY - (40f * chatScale), Utils.CoinsSplit(taxMoney2), chatScale, horizontal: true);
 				}
 			}
 
@@ -295,6 +295,9 @@ namespace BetterDialogue.UI
 				Color baseColor = ChatButtonLoader.GetColor(button, talkNPC, localPlayer);
 				Color black = Color.Black;
 				float hoverScaleModifier = 1.2f;
+				Vector2 mysteriousVector = new Vector2(1f);
+				if (buttonTextSize.X > (260f * chatScale))
+					mysteriousVector.X *= 260f * chatScale / buttonTextSize.X;
 
 				Vector2 modifiedButtonPosition = originalButtonPosition;
 				ChatButtonLoader.ModifyPosition(button, talkNPC, localPlayer, ref modifiedButtonPosition);
@@ -333,7 +336,7 @@ namespace BetterDialogue.UI
 				);
 
 				// Prepare the origin of the next button before the next cycle begins, since it's based on the end of the previous button's text.
-				originalButtonPosition.X += buttonTextSize.X + (30f * chatScale);
+				originalButtonPosition.X += buttonTextSize.X * mysteriousVector.X + (30f * chatScale);
 			}
 		}
 
@@ -375,6 +378,37 @@ namespace BetterDialogue.UI
 					int textWidth = ((Config.DialogueBoxWidth + BetterDialogue.CurrentActiveStyle.BoxWidthModifier + 2) * 30) - 40;
 					TextLines = Utils.WordwrapStringSmart(text, baseColor, FontAssets.MouseText.Value, textWidth, Config.DialogueBoxMaximumLines);
 					AmountOfLines = TextLines.Count;
+				}
+			}
+		}
+
+		public static void DrawTaxMoneyScaled(SpriteBatch sb, string text, float buttonX, float buttonY, int[] coinsArray, float chatScale, bool horizontal = false)
+		{
+			Utils.DrawBorderStringFourWay(sb, FontAssets.MouseText.Value, text, buttonX, buttonY + 40f, Color.White * ((float)(int)Main.mouseTextColor / 255f), Color.Black, Vector2.Zero, chatScale);
+			if (horizontal)
+			{
+				for (int i = 0; i < 4; i++)
+				{
+					Main.instance.LoadItem(74 - i);
+					if (i == 0)
+					{
+						_ = coinsArray[3 - i];
+						_ = 99;
+					}
+
+					Vector2 position = new Vector2(buttonX + ((ChatManager.GetStringSize(FontAssets.MouseText.Value, text, Vector2.One).X + (float)(24 * i) + 45f) * chatScale), buttonY + (50f * chatScale));
+					sb.Draw(TextureAssets.Item[74 - i].Value, position, null, Color.White, 0f, TextureAssets.Item[74 - i].Value.Size() / 2f, chatScale, SpriteEffects.None, 0f);
+					Utils.DrawBorderStringFourWay(sb, FontAssets.ItemStack.Value, coinsArray[3 - i].ToString(), position.X - (11f * chatScale), position.Y, Color.White, Color.Black, new Vector2(0.3f), 0.75f * chatScale);
+				}
+			}
+			else
+			{
+				for (int j = 0; j < 4; j++)
+				{
+					Main.instance.LoadItem(74 - j);
+					int num = ((j == 0 && coinsArray[3 - j] > 99) ? (-6) : 0);
+					sb.Draw(TextureAssets.Item[74 - j].Value, new Vector2(buttonX + ((11f + (float)(24 * j)) * chatScale), buttonY + (75f * chatScale)), null, Color.White, 0f, TextureAssets.Item[74 - j].Value.Size() / 2f, chatScale, SpriteEffects.None, 0f);
+					Utils.DrawBorderStringFourWay(sb, FontAssets.ItemStack.Value, coinsArray[3 - j].ToString(), buttonX + (((float)(24 * j) + (float)num) * chatScale), buttonY + (75f * chatScale), Color.White, Color.Black, new Vector2(0.3f), 0.75f * chatScale);
 				}
 			}
 		}

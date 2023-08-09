@@ -92,7 +92,7 @@ namespace BetterDialogue.UI.VanillaChatButtons
 			return null;
 		}
 
-		public override string Description(NPC npc, Player player) => "Have " + npc.GivenName + " tend to your injuries, for a cost.";
+		public override string Description(NPC npc, Player player) => npc.GivenName + " gathers money from the local townsfolk so you don't have to. Check in with him every once in a while to snag your share of the haul!";
 
 		public override bool IsActive(NPC npc, Player player) => npc.type == NPCID.TaxCollector;
 

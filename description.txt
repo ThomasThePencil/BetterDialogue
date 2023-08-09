@@ -18,6 +18,13 @@ as a framework for chat modification, Dialect comes pre-equipped with the follow
 
 ----- CHANGELOGS BELOW ----
 
+v1.1.4:
+- added proper UI scale support! Dialect's windows should now support non-standard UI scale choices
+  - note: at the time of writin', the Tax Collector's "Collect" button currently doesn't scale perfectly. I'll be labbin' out how to fix this at a later point in time
+- fixed a long-standin' issue with button hover boxes on Classic-type styles, causin' hover boxes to be slightly wrong
+- fixed the Purify Button havin' the Status text and lettin' you infinitely produce the funny Stardew Valley fruit
+- did a bunch of refactorin' to the source to (hopefully) make it easier to read
+
 v1.1.3:
 FINALLY fixed signs! signs and adjacent should now be wholly compatible with all of Dialect's changes and improvements
 
