@@ -281,10 +281,10 @@ namespace BetterDialogue.UI
 			float chatScale = tileDrawSize / 30f;
 			float chatBackdropWidth = (config.DialogueBoxWidth + BetterDialogue.CurrentActiveStyle.BoxWidthModifier + 2) * tileDrawSize;
 			float buttonX = (((int)Math.Round(Main.screenWidth * chatScale) - chatBackdropWidth) / 2) + tileDrawSize;
-			float buttonY = (130 + lineCount * 30) * chatScale;
+			float buttonY = (130f + (float)lineCount * 30f) * chatScale;
 			Player localPlayer = Main.player[Main.myPlayer];
 			NPC talkNPC = localPlayer.TalkNPC;
-			Vector2 originalButtonOrigin = new Vector2(buttonX, buttonY);
+			Vector2 originalButtonPosition = new Vector2(buttonX, buttonY);
 			for (int i = 0; i < activeChatButtons.Count; i++)
 			{
 				ChatButton button = activeChatButtons[i];
@@ -294,19 +294,16 @@ namespace BetterDialogue.UI
 				Vector2 buttonTextSize = ChatManager.GetStringSize(buttonTextFont, buttonText, buttonTextScale);
 				Color baseColor = ChatButtonLoader.GetColor(button, talkNPC, localPlayer);
 				Color black = Color.Black;
-				Vector2 mysteriousVector = new Vector2(1f);
 				float hoverScaleModifier = 1.2f;
-				if (buttonTextSize.X > 260f)
-					mysteriousVector.X *= 260f / buttonTextSize.X;
 
-				Vector2 modifiedButtonOrigin = originalButtonOrigin;
-				ChatButtonLoader.ModifyPosition(button, talkNPC, localPlayer, ref modifiedButtonOrigin);
+				Vector2 modifiedButtonPosition = originalButtonPosition;
+				ChatButtonLoader.ModifyPosition(button, talkNPC, localPlayer, ref modifiedButtonPosition);
 
 				button.HoverBox = new Rectangle(
-					(int)modifiedButtonOrigin.X,
-					(int)modifiedButtonOrigin.Y,
-					(int)(buttonTextSize * buttonTextScale * mysteriousVector.X).X,
-					(int)(buttonTextSize * buttonTextScale * mysteriousVector.X).Y
+					(int)(modifiedButtonPosition / chatScale).X, // I have no idea why, but for some reason, the game decides to auto-scale the hover box's position with UI scale
+					(int)(modifiedButtonPosition / chatScale).Y, // a second time, forcin' me to do this stupid shit in order to make sure the position is only scaled once
+					(int)buttonTextSize.X,
+					(int)buttonTextSize.Y
 				);
 				if (button.IsHovered && !PlayerInput.IgnoreMouseInterface)
 				{
@@ -327,16 +324,16 @@ namespace BetterDialogue.UI
 					Main.spriteBatch,
 					buttonTextFont,
 					buttonText,
-					modifiedButtonOrigin + (buttonTextSize * mysteriousVector * 0.5f),
+					modifiedButtonPosition + (buttonTextSize * 0.5f),
 					baseColor,
 					button.IsHovered ? Color.Brown : Color.Black,
 					0f,
-					buttonTextSize * mysteriousVector * 0.5f,
-					buttonTextScale * mysteriousVector
+					buttonTextSize * 0.5f,
+					buttonTextScale
 				);
 
 				// Prepare the origin of the next button before the next cycle begins, since it's based on the end of the previous button's text.
-				originalButtonOrigin.X += buttonTextSize.X * mysteriousVector.X + (30f * chatScale);
+				originalButtonPosition.X += buttonTextSize.X + (30f * chatScale);
 			}
 		}
 
@@ -375,8 +372,6 @@ namespace BetterDialogue.UI
 					_lastBoxMaxLines = Config.DialogueBoxMaximumLines;
 					text = Lang.SupportGlyphs(text);
 
-					int tileDrawSize = (int)Math.Round(30f * Main.UIScale);
-					float chatScale = tileDrawSize / 30f;
 					int textWidth = ((Config.DialogueBoxWidth + BetterDialogue.CurrentActiveStyle.BoxWidthModifier + 2) * 30) - 40;
 					TextLines = Utils.WordwrapStringSmart(text, baseColor, FontAssets.MouseText.Value, textWidth, Config.DialogueBoxMaximumLines);
 					AmountOfLines = TextLines.Count;
