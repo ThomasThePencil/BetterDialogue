@@ -7,13 +7,13 @@ namespace BetterDialogue.UI.VanillaChatButtons
 {
 	public class DryadPurifyButton : ChatButton
 	{
-		public override string Text(NPC npc, Player player) => Lang.inter[49].Value;
+		public override string Text(NPC npc, Player player) => Language.GetTextValue("StardewTalk.GiveColaButtonText");
 
 		public override double Priority => 9.0;
 
 		public override string Description(NPC npc, Player player) => "...it's still full of soda. She could just say she's thirsty.";
 
-		public override bool IsActive(NPC npc, Player player) => npc.type == NPCID.Dryad;
+		public override bool IsActive(NPC npc, Player player) => npc.type == NPCID.Dryad && Main.CanDryadPlayStardewAnimation(player, npc);
 
 		public override void OnClick(NPC npc, Player player)
 		{

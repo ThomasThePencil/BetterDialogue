@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -40,10 +41,12 @@ namespace BetterDialogue.UI
 				return;
 			}
 
+			Main.spriteBatch.End();
+			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null);
 			Color someShadeOfGray = new Color(200, 200, 200, 200);
 			int mouseTextColor = (Main.mouseTextColor * 2 + 255) / 3;
 			Color baseTextColor = new Color(mouseTextColor, mouseTextColor, mouseTextColor, mouseTextColor);
-			bool flag = Main.InGameUI.CurrentState is UIVirtualKeyboard && PlayerInput.UsingGamepad;
+			bool skipButtonDraw = Main.InGameUI.CurrentState is UIVirtualKeyboard && PlayerInput.UsingGamepad;
 			string chatText = Main.npcChatText;
 			if (npc is not null)
 			{
@@ -91,7 +94,13 @@ namespace BetterDialogue.UI
 			}
 
 			BetterDialogueConfig config = ModContent.GetInstance<BetterDialogueConfig>();
-			int chatBackdropWidth = (config.DialogueBoxWidth + BetterDialogue.CurrentActiveStyle.BoxWidthModifier + 2) * 30;
+
+			int tileDrawSize = (int)Math.Round(30f * Main.UIScale);
+			float chatScale = tileDrawSize / 30f;
+			int chatBackdropWidth = (config.DialogueBoxWidth + BetterDialogue.CurrentActiveStyle.BoxWidthModifier + 2) * tileDrawSize;
+			int chatBackdropHeight = (amountOfLines + 2) * tileDrawSize;
+			int chatBackdropXOffset = ((int)Math.Round(Main.screenWidth * chatScale) - chatBackdropWidth) / 2;
+			int chatBackdropYOffset = (int)Math.Round(100f * chatScale);
 			#region Draw the backdrop of the dialogue style
 			for (int y = 0; y <= amountOfLines + 1; y++)
 			{
@@ -103,8 +112,8 @@ namespace BetterDialogue.UI
 					Main.spriteBatch.Draw(
 						BetterDialogue.CurrentActiveStyle.DialogueBoxTileSheet,
 						new Vector2(
-							Main.screenWidth / 2 - chatBackdropWidth / 2 + (30 * x),
-							100f + (y * 30)
+							chatBackdropXOffset + (tileDrawSize * x),
+							chatBackdropYOffset + (tileDrawSize * y)
 						),
 						new Rectangle(
 							targetSheetTileX,
@@ -115,7 +124,7 @@ namespace BetterDialogue.UI
 						someShadeOfGray,
 						0f,
 						default,
-						1f,
+						chatScale,
 						SpriteEffects.None,
 						0f
 					);
@@ -132,14 +141,14 @@ namespace BetterDialogue.UI
 					FontAssets.MouseText.Value,
 					text.ToArray(),
 					new Vector2(
-						20 + ((Main.screenWidth - chatBackdropWidth) / 2),
-						120 + i * 30
+						(int)(20 * chatScale) + chatBackdropXOffset,
+						(int)(120 * chatScale) + (tileDrawSize * i)
 					),
 					0f,
 					baseTextColor,
 					Color.Black,
 					Vector2.Zero,
-					Vector2.One,
+					Vector2.One * chatScale,
 					out int hoveredSnippetNum
 				);
 
@@ -159,14 +168,15 @@ namespace BetterDialogue.UI
 					hoveredSnippet.OnClick();
 			}
 
-			Rectangle rectangle = new Rectangle(
-				Main.screenWidth / 2 - chatBackdropWidth / 2,
-				100,
+			Rectangle interfaceRectangle = new Rectangle(
+				chatBackdropXOffset,
+				chatBackdropYOffset,
 				chatBackdropWidth,
-				(amountOfLines + 2) * 30
+				chatBackdropHeight
 			);
 			int num3 = 120 + amountOfLines * 30 + 30;
 			num3 -= 235;
+			num3 = (int)Math.Round(num3 * chatScale);
 			UIVirtualKeyboard.ShouldHideText = !PlayerInput.SettingsForUI.ShowGamepadHints;
 			if (!PlayerInput.UsingGamepad)
 				num3 = 9999;
@@ -175,22 +185,28 @@ namespace BetterDialogue.UI
 			if (Main.npcChatCornerItem != 0)
 			{
 				Vector2 position = new Vector2(
-					Main.screenWidth / 2 + chatBackdropWidth / 2,
-					100 + (amountOfLines + 1) * 30 + 30
+					chatBackdropXOffset,
+					chatBackdropYOffset + chatBackdropHeight
 				);
 				position -= Vector2.One * 8f;
+				position.Y *= chatScale;
 				Item item = new Item();
 				item.netDefaults(Main.npcChatCornerItem);
-				float num4 = 1f;
+				float itemDrawScale = chatScale;
 				Main.GetItemDrawFrame(item.type, out var itemTexture, out var rectangle2);
 				if (rectangle2.Width > 32 || rectangle2.Height > 32)
-					num4 = ((rectangle2.Width <= rectangle2.Height) ? (32f / (float)rectangle2.Height) : (32f / (float)rectangle2.Width));
+					itemDrawScale = ((rectangle2.Width <= rectangle2.Height) ? (32f / (float)rectangle2.Height) : (32f / (float)rectangle2.Width)) * chatScale;
 
-				Main.spriteBatch.Draw(itemTexture, position, rectangle2, item.GetAlpha(Color.White), 0f, rectangle2.Size(), num4, SpriteEffects.None, 0f);
-				if (item.color != default(Color))
-					Main.spriteBatch.Draw(itemTexture, position, rectangle2, item.GetColor(item.color), 0f, rectangle2.Size(), num4, SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(itemTexture, position, rectangle2, item.GetAlpha(Color.White), 0f, rectangle2.Size(), itemDrawScale, SpriteEffects.None, 0f);
+				if (item.color != default)
+					Main.spriteBatch.Draw(itemTexture, position, rectangle2, item.GetColor(item.color), 0f, rectangle2.Size(), itemDrawScale, SpriteEffects.None, 0f);
 
-				if (new Rectangle((int)position.X - (int)((float)rectangle2.Width * num4), (int)position.Y - (int)((float)rectangle2.Height * num4), (int)((float)rectangle2.Width * num4), (int)((float)rectangle2.Height * num4)).Contains(new Point(Main.mouseX, Main.mouseY)))
+				Rectangle itemHoverRectangle = new Rectangle(
+					(int)position.X - (int)(rectangle2.Width * itemDrawScale),
+					(int)position.Y - (int)(rectangle2.Height * itemDrawScale),
+					(int)(rectangle2.Width * itemDrawScale),
+					(int)(rectangle2.Height * itemDrawScale));
+				if (itemHoverRectangle.Contains(new Point(Main.mouseX, Main.mouseY)))
 				{
 					Main.cursorOverride = 2;
 					if (Main.mouseLeftRelease && Main.mouseLeft)
@@ -206,17 +222,14 @@ namespace BetterDialogue.UI
 				}
 			}
 
-			mouseTextColor = Main.mouseTextColor;
-			baseTextColor = new Color(mouseTextColor, (int)((double)mouseTextColor / 1.1), mouseTextColor / 2, mouseTextColor);
-
-			bool drawMoney = false;
+			bool drawTaxMoney = false;
 			if (npc is not null)
-				drawMoney = chatButtons.FirstOrDefault(x => x == ChatButton.TaxCollectorNeedsYOUToTakeYourDamnTaxesAlready && x.IsActive(npc, localPlayer)) != null;
+				drawTaxMoney = chatButtons.FirstOrDefault(x => x == ChatButton.TaxCollectorNeedsYOUToTakeYourDamnTaxesAlready && x.IsActive(npc, localPlayer)) != null;
 
-			if (!flag)
+			if (!skipButtonDraw)
 			{
-				DrawClassicButtons(mouseTextColor, baseTextColor, amountOfLines, chatButtons);
-				if (drawMoney)
+				DrawClassicButtons(amountOfLines, chatButtons);
+				if (drawTaxMoney)
 				{
 					string focusText = Lang.inter[89].Value;
 					string text2 = "";
@@ -224,23 +237,23 @@ namespace BetterDialogue.UI
 					{
 						text2 += " ";
 					}
-					float num18 = 130 + amountOfLines * 30;
-					float num19 = Main.screenWidth / 2 - chatBackdropWidth / 2 + 30;
-					num19 += ChatManager.GetStringSize(FontAssets.MouseText.Value, text2, new Vector2(0.9f)).X - 20f;
+					float shopX = chatBackdropYOffset + chatBackdropHeight - tileDrawSize;
+					float shopButtonX = chatBackdropXOffset + tileDrawSize;
+					shopButtonX += (ChatManager.GetStringSize(FontAssets.MouseText.Value, text2, new Vector2(0.9f)).X - 20f) * chatScale;
 					int taxMoney2 = localPlayer.taxMoney;
 					taxMoney2 = (int)((double)taxMoney2 / localPlayer.currentShoppingSettings.PriceAdjustment);
-					ItemSlot.DrawMoney(Main.spriteBatch, "", num19, num18 - 40f, Utils.CoinsSplit(taxMoney2), horizontal: true);
+					ItemSlot.DrawMoney(Main.spriteBatch, "", shopButtonX, shopX - (40f * chatScale), Utils.CoinsSplit(taxMoney2), horizontal: true);
 				}
 			}
 
 			if (PlayerInput.IgnoreMouseInterface)
-				return;
+				goto RestartVanillaSpriteBatch;
 
-			if (rectangle.Contains(Main.MouseScreen.ToPoint()))
+			if (interfaceRectangle.Contains(Main.MouseScreen.ToPoint()))
 				localPlayer.mouseInterface = true;
 
 			if (!Main.mouseLeft || !Main.mouseLeftRelease || !localPlayer.mouseInterface)
-				return;
+				goto RestartVanillaSpriteBatch;
 
 			Main.mouseLeftRelease = false;
 			localPlayer.releaseUseItem = false;
@@ -252,30 +265,36 @@ namespace BetterDialogue.UI
 
 				ChatButtonLoader.OnClick(button, npc, localPlayer);
 			}
+
+			RestartVanillaSpriteBatch:
+			Main.spriteBatch.End();
+			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.UIScaleMatrix);
 		}
 
-		private static void DrawClassicButtons(int superColor, Color chatColor, int numLines, List<ChatButton> chatButtons)
+		private static void DrawClassicButtons(int lineCount, List<ChatButton> activeChatButtons)
 		{
-			float y = 130 + numLines * 30;
 			BetterDialogueConfig config = ModContent.GetInstance<BetterDialogueConfig>();
-			int chatBackdropWidth = (config.DialogueBoxWidth + BetterDialogue.CurrentActiveStyle.BoxWidthModifier + 2) * 30;
-			int num = Main.screenWidth / 2 - chatBackdropWidth / 2 + 30;
+			int tileDrawSize = (int)Math.Round(30f * Main.UIScale);
+			float chatScale = tileDrawSize / 30f;
+			float chatBackdropWidth = (config.DialogueBoxWidth + BetterDialogue.CurrentActiveStyle.BoxWidthModifier + 2) * tileDrawSize;
+			float buttonX = (((int)Math.Round(Main.screenWidth * chatScale) - chatBackdropWidth) / 2) + tileDrawSize;
+			float buttonY = (130 + lineCount * 30) * chatScale;
 			Player localPlayer = Main.player[Main.myPlayer];
 			NPC talkNPC = localPlayer.TalkNPC;
-			Vector2 originalButtonOrigin = new Vector2(num, y);
-			for (int i = 0; i < chatButtons.Count; i++)
+			Vector2 originalButtonOrigin = new Vector2(buttonX, buttonY);
+			for (int i = 0; i < activeChatButtons.Count; i++)
 			{
-				ChatButton button = chatButtons[i];
+				ChatButton button = activeChatButtons[i];
 				string buttonText = ChatButtonLoader.GetText(button, talkNPC, localPlayer);
 				DynamicSpriteFont buttonTextFont = BetterDialogue.CurrentActiveStyle.ChatButtonFont;
-				Vector2 buttonTextScale = new Vector2(0.9f);
+				Vector2 buttonTextScale = new Vector2(0.9f * chatScale);
 				Vector2 buttonTextSize = ChatManager.GetStringSize(buttonTextFont, buttonText, buttonTextScale);
 				Color baseColor = ChatButtonLoader.GetColor(button, talkNPC, localPlayer);
 				Color black = Color.Black;
-				Vector2 vector4 = new Vector2(1f);
+				Vector2 mysteriousVector = new Vector2(1f);
 				float hoverScaleModifier = 1.2f;
 				if (buttonTextSize.X > 260f)
-					vector4.X *= 260f / buttonTextSize.X;
+					mysteriousVector.X *= 260f / buttonTextSize.X;
 
 				Vector2 modifiedButtonOrigin = originalButtonOrigin;
 				ChatButtonLoader.ModifyPosition(button, talkNPC, localPlayer, ref modifiedButtonOrigin);
@@ -283,8 +302,8 @@ namespace BetterDialogue.UI
 				button.HoverBox = new Rectangle(
 					(int)modifiedButtonOrigin.X,
 					(int)modifiedButtonOrigin.Y,
-					(int)(buttonTextSize * buttonTextScale * vector4.X).X,
-					(int)(buttonTextSize * buttonTextScale * vector4.X).Y
+					(int)(buttonTextSize * buttonTextScale * mysteriousVector.X).X,
+					(int)(buttonTextSize * buttonTextScale * mysteriousVector.X).Y
 				);
 				if (button.IsHovered && !PlayerInput.IgnoreMouseInterface)
 				{
@@ -305,16 +324,16 @@ namespace BetterDialogue.UI
 					Main.spriteBatch,
 					buttonTextFont,
 					buttonText,
-					modifiedButtonOrigin + buttonTextSize * vector4 * 0.5f,
+					modifiedButtonOrigin + (buttonTextSize * mysteriousVector * 0.5f),
 					baseColor,
 					button.IsHovered ? Color.Brown : Color.Black,
 					0f,
-					buttonTextSize * 0.5f,
-					buttonTextScale * vector4
+					buttonTextSize * mysteriousVector * 0.5f,
+					buttonTextScale * mysteriousVector
 				);
 
 				// Prepare the origin of the next button before the next cycle begins, since it's based on the end of the previous button's text.
-				originalButtonOrigin.X += buttonTextSize.X * vector4.X + 30f;
+				originalButtonOrigin.X += buttonTextSize.X * mysteriousVector.X + (30f * chatScale);
 			}
 		}
 
@@ -353,6 +372,8 @@ namespace BetterDialogue.UI
 					_lastBoxMaxLines = Config.DialogueBoxMaximumLines;
 					text = Lang.SupportGlyphs(text);
 
+					int tileDrawSize = (int)Math.Round(30f * Main.UIScale);
+					float chatScale = tileDrawSize / 30f;
 					int textWidth = ((Config.DialogueBoxWidth + BetterDialogue.CurrentActiveStyle.BoxWidthModifier + 2) * 30) - 40;
 					TextLines = Utils.WordwrapStringSmart(text, baseColor, FontAssets.MouseText.Value, textWidth, Config.DialogueBoxMaximumLines);
 					AmountOfLines = TextLines.Count;
