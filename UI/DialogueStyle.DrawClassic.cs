@@ -41,10 +41,6 @@ namespace BetterDialogue.UI
 				return;
 			}
 
-			// at a cursory glance, this looks unfathomably dumb, but if I don't do this, the dialogue window adds unnecessary space between tiles on non-100% scales
-			Main.spriteBatch.End();
-			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null);
-
 			Color someShadeOfGray = new Color(200, 200, 200, 200);
 			int mouseTextColor = (Main.mouseTextColor * 2 + 255) / 3;
 			Color baseTextColor = new Color(mouseTextColor, mouseTextColor, mouseTextColor, mouseTextColor);
@@ -97,12 +93,11 @@ namespace BetterDialogue.UI
 
 			BetterDialogueConfig config = ModContent.GetInstance<BetterDialogueConfig>();
 
-			int tileDrawSize = (int)Math.Round(30f * Main.UIScale);
-			float chatScale = tileDrawSize / 30f;
+			int tileDrawSize = 30;
 			int chatBackdropWidth = (config.DialogueBoxWidth + BetterDialogue.CurrentActiveStyle.BoxWidthModifier + 2) * tileDrawSize;
 			int chatBackdropHeight = (amountOfLines + 2) * tileDrawSize;
-			int chatBackdropXOffset = ((int)Math.Round(Main.screenWidth * chatScale) - chatBackdropWidth) / 2;
-			int chatBackdropYOffset = (int)Math.Round(100f * chatScale);
+			int chatBackdropXOffset = (Main.screenWidth - chatBackdropWidth) / 2;
+			int chatBackdropYOffset = 100;
 			#region Draw the backdrop of the dialogue style
 			for (int y = 0; y <= amountOfLines + 1; y++)
 			{
@@ -126,7 +121,7 @@ namespace BetterDialogue.UI
 						someShadeOfGray,
 						0f,
 						default,
-						chatScale,
+						1f,
 						SpriteEffects.None,
 						0f
 					);
@@ -143,14 +138,14 @@ namespace BetterDialogue.UI
 					FontAssets.MouseText.Value,
 					text.ToArray(),
 					new Vector2(
-						(int)(20 * chatScale) + chatBackdropXOffset,
-						(int)(120 * chatScale) + (tileDrawSize * i)
+						20 + chatBackdropXOffset,
+						120 + (tileDrawSize * i)
 					),
 					0f,
 					baseTextColor,
 					Color.Black,
 					Vector2.Zero,
-					Vector2.One * chatScale,
+					Vector2.One,
 					out int hoveredSnippetNum
 				);
 
@@ -178,7 +173,6 @@ namespace BetterDialogue.UI
 			);
 			int num3 = 120 + amountOfLines * 30 + 30;
 			num3 -= 235;
-			num3 = (int)Math.Round(num3 * chatScale);
 			UIVirtualKeyboard.ShouldHideText = !PlayerInput.SettingsForUI.ShowGamepadHints;
 			if (!PlayerInput.UsingGamepad)
 				num3 = 9999;
@@ -191,13 +185,12 @@ namespace BetterDialogue.UI
 					chatBackdropYOffset + chatBackdropHeight
 				);
 				position -= Vector2.One * 8f;
-				position.Y *= chatScale;
 				Item item = new Item();
 				item.netDefaults(Main.npcChatCornerItem);
-				float itemDrawScale = chatScale;
+				float itemDrawScale = 1f;
 				Main.GetItemDrawFrame(item.type, out var itemTexture, out var rectangle2);
 				if (rectangle2.Width > 32 || rectangle2.Height > 32)
-					itemDrawScale = ((rectangle2.Width <= rectangle2.Height) ? (32f / (float)rectangle2.Height) : (32f / (float)rectangle2.Width)) * chatScale;
+					itemDrawScale = (rectangle2.Width <= rectangle2.Height) ? (32f / (float)rectangle2.Height) : (32f / (float)rectangle2.Width);
 
 				Main.spriteBatch.Draw(itemTexture, position, rectangle2, item.GetAlpha(Color.White), 0f, rectangle2.Size(), itemDrawScale, SpriteEffects.None, 0f);
 				if (item.color != default)
@@ -241,21 +234,21 @@ namespace BetterDialogue.UI
 					}
 					float collectButtonY = chatBackdropYOffset + chatBackdropHeight - tileDrawSize;
 					float collectButtonX = chatBackdropXOffset + tileDrawSize;
-					collectButtonX += (ChatManager.GetStringSize(FontAssets.MouseText.Value, text2, new Vector2(0.9f)).X - 20f) * chatScale;
+					collectButtonX += (ChatManager.GetStringSize(FontAssets.MouseText.Value, text2, new Vector2(0.9f)).X - 20f);
 					int taxMoney2 = localPlayer.taxMoney;
 					taxMoney2 = (int)((double)taxMoney2 / localPlayer.currentShoppingSettings.PriceAdjustment);
-					DrawTaxMoneyScaled(Main.spriteBatch, "", collectButtonX, collectButtonY - (40f * chatScale), Utils.CoinsSplit(taxMoney2), chatScale, horizontal: true);
+					DrawTaxMoneyScaled(Main.spriteBatch, "", collectButtonX, collectButtonY - 40f, Utils.CoinsSplit(taxMoney2), true);
 				}
 			}
 
 			if (PlayerInput.IgnoreMouseInterface)
-				goto RestartVanillaSpriteBatch;
+				return;
 
 			if (interfaceRectangle.Contains(Main.MouseScreen.ToPoint()))
 				localPlayer.mouseInterface = true;
 
 			if (!Main.mouseLeft || !Main.mouseLeftRelease || !localPlayer.mouseInterface)
-				goto RestartVanillaSpriteBatch;
+				return;
 
 			Main.mouseLeftRelease = false;
 			localPlayer.releaseUseItem = false;
@@ -267,21 +260,15 @@ namespace BetterDialogue.UI
 
 				ChatButtonLoader.OnClick(button, npc, localPlayer);
 			}
-
-			RestartVanillaSpriteBatch:
-			// now we can let the rest of the vanilla stuff happen as it would normally
-			Main.spriteBatch.End();
-			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.UIScaleMatrix);
 		}
 
 		private static void DrawClassicButtons(int lineCount, List<ChatButton> activeChatButtons)
 		{
 			BetterDialogueConfig config = ModContent.GetInstance<BetterDialogueConfig>();
-			int tileDrawSize = (int)Math.Round(30f * Main.UIScale);
-			float chatScale = tileDrawSize / 30f;
+			int tileDrawSize = 30;
 			float chatBackdropWidth = (config.DialogueBoxWidth + BetterDialogue.CurrentActiveStyle.BoxWidthModifier + 2) * tileDrawSize;
-			float buttonX = (((int)Math.Round(Main.screenWidth * chatScale) - chatBackdropWidth) / 2) + tileDrawSize;
-			float buttonY = (130f + (float)lineCount * 30f) * chatScale;
+			float buttonX = ((Main.screenWidth - chatBackdropWidth) / 2) + tileDrawSize;
+			float buttonY = 130 + (lineCount * 30);
 			Player localPlayer = Main.player[Main.myPlayer];
 			NPC talkNPC = localPlayer.TalkNPC;
 			Vector2 originalButtonPosition = new Vector2(buttonX, buttonY);
@@ -290,21 +277,21 @@ namespace BetterDialogue.UI
 				ChatButton button = activeChatButtons[i];
 				string buttonText = ChatButtonLoader.GetText(button, talkNPC, localPlayer);
 				DynamicSpriteFont buttonTextFont = BetterDialogue.CurrentActiveStyle.ChatButtonFont;
-				Vector2 buttonTextScale = new Vector2(0.9f * chatScale);
+				Vector2 buttonTextScale = new Vector2(0.9f);
 				Vector2 buttonTextSize = ChatManager.GetStringSize(buttonTextFont, buttonText, buttonTextScale);
 				Color baseColor = ChatButtonLoader.GetColor(button, talkNPC, localPlayer);
 				Color black = Color.Black;
 				float hoverScaleModifier = 1.2f;
 				Vector2 mysteriousVector = new Vector2(1f);
-				if (buttonTextSize.X > (260f * chatScale))
-					mysteriousVector.X *= 260f * chatScale / buttonTextSize.X;
+				if (buttonTextSize.X > (260f))
+					mysteriousVector.X *= 260f / buttonTextSize.X;
 
 				Vector2 modifiedButtonPosition = originalButtonPosition;
 				ChatButtonLoader.ModifyPosition(button, talkNPC, localPlayer, ref modifiedButtonPosition);
 
 				button.HoverBox = new Rectangle(
-					(int)(modifiedButtonPosition / chatScale).X, // I have no idea why, but for some reason, the game decides to auto-scale the hover box's position with UI scale
-					(int)(modifiedButtonPosition / chatScale).Y, // a second time, forcin' me to do this stupid shit in order to make sure the position is only scaled once
+					(int)modifiedButtonPosition.X, // I have no idea why, but for some reason, the game decides to auto-scale the hover box's position with UI scale
+					(int)modifiedButtonPosition.Y, // a second time, forcin' me to do this stupid shit in order to make sure the position is only scaled once
 					(int)buttonTextSize.X,
 					(int)buttonTextSize.Y
 				);
@@ -336,7 +323,7 @@ namespace BetterDialogue.UI
 				);
 
 				// Prepare the origin of the next button before the next cycle begins, since it's based on the end of the previous button's text.
-				originalButtonPosition.X += buttonTextSize.X * mysteriousVector.X + (30f * chatScale);
+				originalButtonPosition.X += buttonTextSize.X * mysteriousVector.X + 30f;
 			}
 		}
 
@@ -382,9 +369,9 @@ namespace BetterDialogue.UI
 			}
 		}
 
-		public static void DrawTaxMoneyScaled(SpriteBatch sb, string text, float buttonX, float buttonY, int[] coinsArray, float chatScale, bool horizontal = false)
+		public static void DrawTaxMoneyScaled(SpriteBatch sb, string text, float buttonX, float buttonY, int[] coinsArray, bool horizontal = false)
 		{
-			Utils.DrawBorderStringFourWay(sb, FontAssets.MouseText.Value, text, buttonX, buttonY + 40f, Color.White * ((float)(int)Main.mouseTextColor / 255f), Color.Black, Vector2.Zero, chatScale);
+			Utils.DrawBorderStringFourWay(sb, FontAssets.MouseText.Value, text, buttonX, buttonY + 40f, Color.White * ((float)(int)Main.mouseTextColor / 255f), Color.Black, Vector2.Zero, 1f);
 			if (horizontal)
 			{
 				for (int i = 0; i < 4; i++)
@@ -396,9 +383,9 @@ namespace BetterDialogue.UI
 						_ = 99;
 					}
 
-					Vector2 position = new Vector2(buttonX + ((ChatManager.GetStringSize(FontAssets.MouseText.Value, text, Vector2.One).X + (float)(24 * i) + 45f) * chatScale), buttonY + (50f * chatScale));
-					sb.Draw(TextureAssets.Item[74 - i].Value, position, null, Color.White, 0f, TextureAssets.Item[74 - i].Value.Size() / 2f, chatScale, SpriteEffects.None, 0f);
-					Utils.DrawBorderStringFourWay(sb, FontAssets.ItemStack.Value, coinsArray[3 - i].ToString(), position.X - (11f * chatScale), position.Y, Color.White, Color.Black, new Vector2(0.3f), 0.75f * chatScale);
+					Vector2 position = new Vector2(buttonX + ChatManager.GetStringSize(FontAssets.MouseText.Value, text, Vector2.One).X + (float)(24 * i) + 45f, buttonY + 50f);
+					sb.Draw(TextureAssets.Item[74 - i].Value, position, null, Color.White, 0f, TextureAssets.Item[74 - i].Value.Size() / 2f, 1f, SpriteEffects.None, 0f);
+					Utils.DrawBorderStringFourWay(sb, FontAssets.ItemStack.Value, coinsArray[3 - i].ToString(), position.X - 11f, position.Y, Color.White, Color.Black, new Vector2(0.3f), 0.75f);
 				}
 			}
 			else
@@ -407,8 +394,8 @@ namespace BetterDialogue.UI
 				{
 					Main.instance.LoadItem(74 - j);
 					int num = ((j == 0 && coinsArray[3 - j] > 99) ? (-6) : 0);
-					sb.Draw(TextureAssets.Item[74 - j].Value, new Vector2(buttonX + ((11f + (float)(24 * j)) * chatScale), buttonY + (75f * chatScale)), null, Color.White, 0f, TextureAssets.Item[74 - j].Value.Size() / 2f, chatScale, SpriteEffects.None, 0f);
-					Utils.DrawBorderStringFourWay(sb, FontAssets.ItemStack.Value, coinsArray[3 - j].ToString(), buttonX + (((float)(24 * j) + (float)num) * chatScale), buttonY + (75f * chatScale), Color.White, Color.Black, new Vector2(0.3f), 0.75f * chatScale);
+					sb.Draw(TextureAssets.Item[74 - j].Value, new Vector2(buttonX + 11f + (float)(24 * j), buttonY + 75f), null, Color.White, 0f, TextureAssets.Item[74 - j].Value.Size() / 2f, 1f, SpriteEffects.None, 0f);
+					Utils.DrawBorderStringFourWay(sb, FontAssets.ItemStack.Value, coinsArray[3 - j].ToString(), buttonX + (float)(24 * j) + (float)num, buttonY + 75f, Color.White, Color.Black, new Vector2(0.3f), 0.75f);
 				}
 			}
 		}
