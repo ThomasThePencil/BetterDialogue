@@ -18,6 +18,10 @@ as a framework for chat modification, Dialect comes pre-equipped with the follow
 
 ----- CHANGELOGS BELOW ----
 
+v1.1.4.1:
+- reverted the UI scale changes from 1.1.4, as they made more problems than they solved
+- add some filler to your window tile sheets! turns out, that was the sole issue all along. BOY, do I feel dumb
+
 v1.1.4:
 - added proper UI scale support! Dialect's windows should now support non-standard UI scale choices
   - note: at the time of writin', the Tax Collector's "Collect" button currently doesn't scale perfectly. I'll be labbin' out how to fix this at a later point in time

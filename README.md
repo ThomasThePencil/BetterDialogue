@@ -19,6 +19,10 @@ to make an NPC compatible with Dialect, you need to do at least one of two thing
 - regardless of the NPC, you must add their type to `BetterDialogue.SupportedNPCs`
 - if the NPC is one that you can shop at, you must call `BetterDialogue.RegisterShoppableNPC` with their type
 
+to make a new dialogue style, refer to DialogueSheetExample.png in the UI folder
+the **green** sections are for the tiles themselves
+the **red* sections are for filler; if you don't add this filler, the game won't properly display your sheeted style at non-standard UI scale settings
+
 additionally, the followin' tModLoader hooks **will not work** for supported NPCs. please look at `ChatButton` in particular to see how to deal with the followin' hooks, which no longer function:
 - `ModNPC.SetChatButtons`
   - this ends up being superceded in functionality by the chat button system as a whole
@@ -33,9 +37,6 @@ this is the first entry in a possible series of library mods known as the VSC Fr
 
 if you have any questions about Dialect, please feel free to direct them to me on Discord (name there is thomasthepencil), and have a good time!
 
-huh?
-what's that?
-what does VSC stand for?
-well...
+huh? what's that? what does VSC stand for?
 
-...Victorian Sugar Cookies. best not to think about it much, yeah?
+...Victorian Sugar Cookies.
