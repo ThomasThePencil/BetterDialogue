@@ -18,6 +18,9 @@ as a framework for chat modification, Dialect comes pre-equipped with the follow
 
 ----- CHANGELOGS BELOW ----
 
+v1.1.4.2:
+finally fixed Nurse's heal price not scalin' like it's supposed to
+
 v1.1.4.1:
 - reverted the UI scale changes from 1.1.4, as they made more problems than they solved
 - add some filler to your window tile sheets! turns out, that was the sole issue all along. BOY, do I feel dumb

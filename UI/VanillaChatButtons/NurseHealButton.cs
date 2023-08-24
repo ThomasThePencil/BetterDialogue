@@ -28,6 +28,27 @@ namespace BetterDialogue.UI.VanillaChatButtons
 				if (Main.debuff[num6] && player.buffTime[j] > 60 && (num6 < 0 || !BuffID.Sets.NurseCannotRemoveDebuff[num6]))
 					storedTotalCost += 100;
 			}
+
+			if (NPC.downedGolemBoss)
+				storedTotalCost *= 200;
+			else if (NPC.downedPlantBoss)
+				storedTotalCost *= 150;
+			else if (NPC.downedMechBossAny)
+				storedTotalCost *= 100;
+			else if (Main.hardMode)
+				storedTotalCost *= 60;
+			else if (NPC.downedBoss3 || NPC.downedQueenBee)
+				storedTotalCost *= 25;
+			else if (NPC.downedBoss2)
+				storedTotalCost *= 10;
+			else if (NPC.downedBoss1)
+				storedTotalCost *= 3;
+
+			if (Main.expertMode)
+				storedTotalCost *= 2;
+
+			storedTotalCost = (int)((double)storedTotalCost * player.currentShoppingSettings.PriceAdjustment);
+
 			int totalCost = storedTotalCost;
 			if (totalCost > 0 && totalCost < 1)
 				totalCost = 1;
