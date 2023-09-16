@@ -290,8 +290,8 @@ namespace BetterDialogue.UI
 				ChatButtonLoader.ModifyPosition(button, talkNPC, localPlayer, ref modifiedButtonPosition);
 
 				button.HoverBox = new Rectangle(
-					(int)modifiedButtonPosition.X, // I have no idea why, but for some reason, the game decides to auto-scale the hover box's position with UI scale
-					(int)modifiedButtonPosition.Y, // a second time, forcin' me to do this stupid shit in order to make sure the position is only scaled once
+					(int)modifiedButtonPosition.X,
+					(int)modifiedButtonPosition.Y,
 					(int)buttonTextSize.X,
 					(int)buttonTextSize.Y
 				);
