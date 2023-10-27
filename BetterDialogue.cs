@@ -54,10 +54,7 @@ namespace BetterDialogue
 				if (DialogueStyleLoader.DialogueStyleDisplayNames.Contains(ModContent.GetInstance<BetterDialogueConfig>().DialogueStyle))
 					return DialogueStyleLoader.DialogueStyles.FirstOrDefault(x => x.DisplayName == ModContent.GetInstance<BetterDialogueConfig>().DialogueStyle);
 				else
-				{
-					ModContent.GetInstance<BetterDialogueConfig>().DialogueStyle = "Classic";
 					return DialogueStyle.Classic;
-				}
 			}
 		}
 

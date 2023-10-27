@@ -282,9 +282,9 @@ namespace BetterDialogue.UI
 				Color baseColor = ChatButtonLoader.GetColor(button, talkNPC, localPlayer);
 				Color black = Color.Black;
 				float hoverScaleModifier = 1.2f;
-				Vector2 mysteriousVector = new Vector2(1f);
+				Vector2 whatDoesThisEvenDo = new Vector2(1f);
 				if (buttonTextSize.X > (260f))
-					mysteriousVector.X *= 260f / buttonTextSize.X;
+					whatDoesThisEvenDo.X *= 260f / buttonTextSize.X;
 
 				Vector2 modifiedButtonPosition = originalButtonPosition;
 				ChatButtonLoader.ModifyPosition(button, talkNPC, localPlayer, ref modifiedButtonPosition);
@@ -300,6 +300,7 @@ namespace BetterDialogue.UI
 					localPlayer.mouseInterface = true;
 					localPlayer.releaseUseItem = false;
 					buttonTextScale *= hoverScaleModifier;
+					ChatButtonLoader.OnHover(button, talkNPC, localPlayer);
 					if (button.HoverChanged.HasValue && button.HoverChanged.Value)
 						SoundEngine.PlaySound(SoundID.MenuTick);
 				}
@@ -323,7 +324,7 @@ namespace BetterDialogue.UI
 				);
 
 				// Prepare the origin of the next button before the next cycle begins, since it's based on the end of the previous button's text.
-				originalButtonPosition.X += buttonTextSize.X * mysteriousVector.X + 30f;
+				originalButtonPosition.X += buttonTextSize.X * whatDoesThisEvenDo.X + 30f;
 			}
 		}
 

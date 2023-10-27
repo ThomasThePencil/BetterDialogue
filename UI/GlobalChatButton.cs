@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 namespace BetterDialogue.UI
 {
 	/// <summary>
-	/// Can be used to modify existing chat buttons.
+	/// Can be used to modify existing chat buttons.<br/>
 	/// </summary>
 	public abstract class GlobalChatButton : ModType
 	{
@@ -23,15 +23,15 @@ namespace BetterDialogue.UI
 		/// <param name="npc">The NPC the given player is talking to.</param>
 		/// <param name="player">The player talking to the given NPC.</param>
 		/// <param name="buttonText">
-		/// The text to be used for the button, sourced from <see cref="ChatButton.Text(NPC, Player)"/><br/>
-		/// and any previous <see cref="ModifyText(ChatButton, NPC, Player, ref string)"/> calls.<br/>
+		/// The text to be used for the button, sourced from <see cref="ChatButton.Text(NPC, Player)"/> and<br/>
+		/// any previous <see cref="ModifyText(ChatButton, NPC, Player, ref string)"/> calls.<br/>
 		/// </param>
 		public virtual void ModifyText(ChatButton chatButton, NPC npc, Player player, ref string buttonText) { }
 
 		/// <summary>
 		/// Allows you to modify the color of the text on an existing chat button.<br/>
 		/// </summary>
-		/// <param name="chatButton">The chat button to add new on-hover behavior to.</param>
+		/// <param name="chatButton">The chat button to modify the text color of.</param>
 		/// <param name="npc">The NPC the given player is talking to.</param>
 		/// <param name="player">The player talking to the given NPC.</param>
 		/// <param name="buttonTextColor">
@@ -43,7 +43,7 @@ namespace BetterDialogue.UI
 		/// <summary>
 		/// Allows you to modify the description for an existing chat button.<br/>
 		/// </summary>
-		/// <param name="chatButton">The chat button to add new on-hover behavior to.</param>
+		/// <param name="chatButton">The chat button to modify the desription of.</param>
 		/// <param name="npc">The NPC the given player is talking to.</param>
 		/// <param name="player">The player talking to the given NPC.</param>
 		/// <param name="descriptionText">
@@ -62,7 +62,7 @@ namespace BetterDialogue.UI
 		/// <returns>
 		/// <see langword="null"/> by default, and if the active status of the button should not be changed.<br/>
 		/// <see langword="true"/> to force the button to be active. <b>Overrules all <see langword="null"/> returns from previous calls.</b><br/>
-		/// <see langword="false"/> to force the button to be inactive. <b>Overrules all <see langword="null"/> and <see langword="true"/> returns from previous calls.</b><br/>
+		/// <see langword="false"/> to force the button to be inactive. <b>Overrules all <see langword="null"/> and <see langword="true"/> returns from previous calls. Short-circuits.</b><br/>
 		/// </returns>
 		public virtual bool? IsActive(ChatButton chatButton, NPC npc, Player player) => null;
 
@@ -77,6 +77,17 @@ namespace BetterDialogue.UI
 		public virtual void ModifyPosition(ChatButton chatButton, NPC npc, Player player, ref Vector2 position) { }
 
 		/// <summary>
+		/// Allows you to override the on-hover behavior for chat buttons.<br/>
+		/// Returns <see langword="true"/> by default, return <see langword="false"/> to prevent the button's normal on-hover behavior (<see cref="OnHover(ChatButton, NPC, Player)"/> included) from running.<br/>
+		/// <b>Be careful when using this,</b> as some modded buttons or styles may rely on specific on-click behavior.<br/>
+		/// </summary>
+		/// <param name="chatButton">The chat button to potentially override the on-click behavior of.</param>
+		/// <param name="npc">The NPC the given player is talking to.</param>
+		/// <param name="player">The player talking to the given NPC.</param>
+		/// <returns></returns>
+		public virtual bool PreHover(ChatButton chatButton, NPC npc, Player player) => true;
+
+		/// <summary>
 		/// Allows you to make chat buttons do additional things when hovered over.
 		/// </summary>
 		/// <param name="chatButton">The chat button to add new on-hover behavior to.</param>
@@ -86,7 +97,8 @@ namespace BetterDialogue.UI
 
 		/// <summary>
 		/// Allows you to override the on-click behavior for chat buttons.<br/>
-		/// Be careful when using this.<br/>
+		/// Returns <see langword="true"/> by default, return <see langword="false"/> to prevent the button's normal on-click behavior (<see cref="OnClick(ChatButton, NPC, Player)"/> included) from running.<br/>
+		/// <b>Be careful when using this,</b> as some modded styles may rely on specific on-click behavior.<br/>
 		/// </summary>
 		/// <param name="chatButton">The chat button to potentially override the on-click behavior of.</param>
 		/// <param name="npc">The NPC the given player is talking to.</param>

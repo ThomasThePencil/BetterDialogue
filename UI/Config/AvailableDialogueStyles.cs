@@ -4,6 +4,8 @@ using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
@@ -22,6 +24,21 @@ namespace BetterDialogue.UI.Config
 {
 	public class AvailableDialogueStyles : ConfigElement
 	{
+		private static Action<ModConfig> ConfigManagerSave;
+
+		public static void SaveModConfig(ModConfig config)
+		{
+			(ConfigManagerSave ??= CreateConfigManagerSave())(config);
+
+			static Action<ModConfig> CreateConfigManagerSave()
+			{
+				MethodInfo configManagerSaveMethod = typeof(ConfigManager).GetMethod("Save", BindingFlags.Static | BindingFlags.NonPublic, new[] { typeof(ModConfig) })
+					?? throw new InvalidOperationException("Cannot get 'Terraria.ModLoader.Config.ConfigManager.Save' method.");
+				ParameterExpression modConfigParameter = Expression.Parameter(typeof(ModConfig));
+				return Expression.Lambda<Action<ModConfig>>(Expression.Call(configManagerSaveMethod, modConfigParameter), modConfigParameter).Compile();
+			}
+		}
+
 		public Texture2D Backdrop { get; set; }
 		public Texture2D ActiveOption { get; set; }
 		public Texture2D InactiveOption { get; set; }
@@ -37,7 +54,8 @@ namespace BetterDialogue.UI.Config
 		{
 			base.Draw(spriteBatch);
 			CalculatedStyle dimensions = GetDimensions();
-			for (int i = 1; i <= DialogueStyleLoader.DialogueStyles.Count; i++)
+			List<DialogueStyle> selectableStyles = DialogueStyleLoader.DialogueStyles.FindAll(x => x.CanBeSelected());
+			for (int i = 1; i <= selectableStyles.Count; i++)
 			{
 				DialogueStyle style = DialogueStyleLoader.DialogueStyles[i - 1];
 				string styleName = style.DisplayName;
@@ -64,6 +82,7 @@ namespace BetterDialogue.UI.Config
 					{
 						SoundEngine.PlaySound(SoundID.MenuTick);
 						ModContent.GetInstance<BetterDialogueConfig>().DialogueStyle = styleName;
+						SaveModConfig(ModContent.GetInstance<BetterDialogueConfig>());
 					}
 				}
 				Vector2 textScale = new Vector2(0.8f);

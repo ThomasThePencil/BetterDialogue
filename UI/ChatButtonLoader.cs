@@ -120,6 +120,27 @@ namespace BetterDialogue.UI
 		}
 
 		/// <summary>
+		/// Performs all possible on-hover actions for the given chat button.<br/>
+		/// </summary>
+		/// <param name="chatButton">The chat button to perform all on-hover actions of.</param>
+		/// <param name="npc">The NPC the given player is talking to.</param>
+		/// <param name="player">The player talking to the given NPC.</param>
+		public static void OnHover(ChatButton chatButton, NPC npc, Player player)
+		{
+			foreach (GlobalChatButton global in ChatButtonGlobals)
+			{
+				bool preHover = global.PreHover(chatButton, npc, player);
+				if (!preHover)
+					return;
+			}
+			chatButton.OnHover(npc, player);
+			foreach (GlobalChatButton global in ChatButtonGlobals)
+			{
+				global.OnHover(chatButton, npc, player);
+			}
+		}
+
+		/// <summary>
 		/// Performs all possible on-click actions for the given chat button.<br/>
 		/// </summary>
 		/// <param name="chatButton">The chat button to perform all on-click actions of.</param>

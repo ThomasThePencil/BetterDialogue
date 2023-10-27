@@ -88,6 +88,12 @@ namespace BetterDialogue.UI
 		public virtual DynamicSpriteFont ChatButtonFont => DialogueFont;
 
 		/// <summary>
+		/// Determines whether or not a dialogue style can be selected in the config menu.<br/>
+		/// Returns <see langword="false"/> by default, return <see langword="true"/> to prevent the config from including this dialogue style.<br/>
+		/// </summary>
+		public virtual bool CanBeSelected() => true;
+
+		/// <summary>
 		/// Allows you to "force" this dialogue style to be active conditionally.<br/>
 		/// Does not change the player's existing chosen dialogue style.<br/>
 		/// Returns <see langword="false"/> by default, return <see langword="true"/> to force this style to be active.<br/>
