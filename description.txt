@@ -18,6 +18,12 @@ as a framework for chat modification, Dialect comes pre-equipped with the follow
 
 ----- CHANGELOGS BELOW ----
 
+v1.1.5:
+- added a GlobalChatButton.PreHover hook
+- (Global)ChatButton.OnHover is now actually called by default
+- added a CanBeSelected hook for dialogue styles which can be used to exclude a style from the selection menu in the config
+- fixed (mostly) a bug which caused selectin' a new style in the config to never actually save to the config file itself
+
 v1.1.4.2:
 finally fixed Nurse's heal price not scalin' like it's supposed to
 
