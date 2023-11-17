@@ -18,6 +18,9 @@ as a framework for chat modification, Dialect comes pre-equipped with the follow
 
 ----- CHANGELOGS BELOW ----
 
+v1.1.5.1:
+fixed a bug which caused the new CanBeSelected hook to not actually work
+
 v1.1.5:
 - added a GlobalChatButton.PreHover hook
 - (Global)ChatButton.OnHover is now actually called by default

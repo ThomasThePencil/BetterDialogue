@@ -57,7 +57,7 @@ namespace BetterDialogue.UI.Config
 			List<DialogueStyle> selectableStyles = DialogueStyleLoader.DialogueStyles.FindAll(x => x.CanBeSelected());
 			for (int i = 1; i <= selectableStyles.Count; i++)
 			{
-				DialogueStyle style = DialogueStyleLoader.DialogueStyles[i - 1];
+				DialogueStyle style = selectableStyles[i - 1];
 				string styleName = style.DisplayName;
 				Rectangle destRect = new Rectangle(
 					(int)dimensions.X + 25,
