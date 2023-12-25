@@ -181,10 +181,10 @@ namespace BetterDialogue.UI
 			if (Main.npcChatCornerItem != 0)
 			{
 				Vector2 position = new Vector2(
-					chatBackdropXOffset,
+					chatBackdropXOffset + chatBackdropWidth,
 					chatBackdropYOffset + chatBackdropHeight
 				);
-				position -= Vector2.One * 8f;
+				position -= Vector2.One * 16f;
 				Item item = new Item();
 				item.netDefaults(Main.npcChatCornerItem);
 				float itemDrawScale = 1f;

@@ -18,6 +18,10 @@ as a framework for chat modification, Dialect comes pre-equipped with the follow
 
 ----- CHANGELOGS BELOW ----
 
+v1.1.5.2:
+- the Dialogue Panel Rework mod's panel should no longer apply for supported NPCs
+- fixed a long-standin' bug causin' items displayed in the corner of dialogue windows to instead be in the corner outside of the window for Classic-type styles
+
 v1.1.5.1:
 fixed a bug which caused the new CanBeSelected hook to not actually work
 
