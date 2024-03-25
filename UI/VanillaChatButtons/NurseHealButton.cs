@@ -11,9 +11,9 @@ namespace BetterDialogue.UI.VanillaChatButtons
 {
 	public class NurseHealButton : ChatButton
 	{
-		public string CantHealReason;
-		public bool CanHeal;
-		public bool RemoveDebuffs;
+		public static string CantHealReason;
+		public static bool CanHeal;
+		public static bool RemoveDebuffs;
 		public int HealPrice(NPC npc, Player player, out int missingHealth, out int platinumCost, out int goldCost, out int silverCost, out int copperCost)
 		{
 			platinumCost = 0;
@@ -53,6 +53,7 @@ namespace BetterDialogue.UI.VanillaChatButtons
 			if (totalCost > 0 && totalCost < 1)
 				totalCost = 1;
 
+			RemoveDebuffs = true;
 			CantHealReason = Language.GetTextValue("tModLoader.DefaultNurseCantHealChat");
 			CanHeal = PlayerLoader.ModifyNurseHeal(player, npc, ref missingHealth, ref RemoveDebuffs, ref CantHealReason);
 			PlayerLoader.ModifyNursePrice(player, npc, missingHealth, RemoveDebuffs, ref totalCost);
