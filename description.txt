@@ -18,6 +18,9 @@ as a framework for chat modification, Dialect comes pre-equipped with the follow
 
 ----- CHANGELOGS BELOW ----
 
+v1.1.5.4:
+the Happiness button now properly respects NPCID.Sets.NoTownNPCHappiness
+
 v1.1.5.3:
 fixed RemoveDebuffs in Nurse's heal button code bein' set to false by default, meanin' debuffs would never be cured without mod intervention
 

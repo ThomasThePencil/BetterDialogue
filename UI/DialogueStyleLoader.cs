@@ -45,12 +45,12 @@ namespace BetterDialogue.UI
 		/// <summary>
 		/// Not recommended for public use, but left public just in case you know what you're doing and need to use it for some reason.<br/>
 		/// Performs all code related to drawing dialogue styles. In order...<br/>
-		/// 1.) Verifies that the Exit button is in the last button space, and moves it there if it is not.
-		/// 1.) Calls <see cref="GlobalDialogueStyle.PreDraw"/> for all applicable global styles. If any of them return <see langword="false"/>, skip to step 4.
-		/// 2.) Calls <see cref="DialogueStyle.PreDraw"/> for the active dialogue style. If this returns <see langword="false"/>, skip step 3.<br/>
-		/// 3.) Calls <see cref="DialogueStyle.Draw"/> for the active dialogue style.<br/>
-		/// 4.) Calls <see cref="DialogueStyle.PostDraw"/> for the active dialogue style.<br/>
-		/// 5.) Calls <see cref="GlobalDialogueStyle.PostDraw"/> for all applicable global styles.<br/>
+		/// 1.) Verifies that the Exit button is in the last button space, and moves it there if it is not.<br/>
+		/// 2.) Calls <see cref="GlobalDialogueStyle.PreDraw"/> for all applicable global styles. If any of them return <see langword="false"/>, skip to step 4.<br/>
+		/// 3.) Calls <see cref="DialogueStyle.PreDraw"/> for the active dialogue style. If this returns <see langword="false"/>, skip step 3.<br/>
+		/// 4.) Calls <see cref="DialogueStyle.Draw"/> for the active dialogue style.<br/>
+		/// 5.) Calls <see cref="DialogueStyle.PostDraw"/> for the active dialogue style.<br/>
+		/// 6.) Calls <see cref="GlobalDialogueStyle.PostDraw"/> for all applicable global styles.<br/>
 		/// </summary>
 		public static void DrawActiveDialogueStyle()
 		{
