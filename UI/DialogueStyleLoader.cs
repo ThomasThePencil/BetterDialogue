@@ -80,6 +80,7 @@ namespace BetterDialogue.UI
 						activeChatButtons.Add(button);
 				}
 			}
+
 			foreach (GlobalDialogueStyle global in DialogueStyleGlobals)
 			{
 				if (!global.PreDraw(activeStyle, player.TalkNPC, player, activeChatButtons))
@@ -96,7 +97,6 @@ namespace BetterDialogue.UI
 			{
 				global.PostDraw(activeStyle, player.TalkNPC, player, activeChatButtons);
 			}
-
 		}
 
 		internal static void Unload()

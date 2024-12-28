@@ -36,5 +36,32 @@ Mods: {
 					'''
 			}
 		}
+
+		UI: {
+			SwapDialectButtonDesc: {
+				NoDPR:
+					'''
+					Allows you to change what dialogue-modifying mod you're currently viewing the dialogue box with.
+					Whenever you open a dialogue window, automagically resets to using Dialect's windows.
+					Certain dialogue options might only be available on specific modes.
+					Available options:
+					[c/{DialectSortColor}:> Dialect]
+					[c/{VanillaSortColor}:> Vanilla]
+					[c/FFFF00:Left- or right-click to cycle]
+					'''
+				DPR:
+					'''
+					Allows you to change what dialogue-modifying mod you're currently viewing the dialogue box with.
+					Whenever you open a dialogue window, automagically resets to using Dialect's windows.
+					Certain dialogue options might only be available on specific modes.
+					Available options:
+					[c/{DialectSortColor}:> Dialect]
+					[c/{VanillaSortColor}:> Vanilla]
+					[c/{DPRSortColor}:> Dialogue Panel Rework]
+					[c/FFFF00:Left-click to cycle forward]
+					[c/FFFF00:Right-click to cycle backward]
+					'''
+			}
+		}
 	}
 }

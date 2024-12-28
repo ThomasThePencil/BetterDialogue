@@ -1,5 +1,6 @@
 using BetterDialogue.UI;
 using BetterDialogue.UI.VanillaChatButtons;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -115,7 +116,11 @@ namespace BetterDialogue
 
 			On_Main.GUIChatDrawInner += (orig, self) =>
 			{
-				if (Main.LocalPlayer.TalkNPC is null)
+				if (DialogueCycleButtonUI.ActiveDialogueMod is "Vanilla" or "DPR")
+				{
+					orig(self);
+				}
+				else if (Main.LocalPlayer.TalkNPC is null)
 				{
 					if (Main.LocalPlayer.sign == -1)
 						Main.npcChatText = "";
@@ -130,6 +135,18 @@ namespace BetterDialogue
 						DialogueStyleLoader.DrawActiveDialogueStyle();
 				}
 			};
+		}
+
+		public override void PostSetupContent()
+		{
+			if (ModLoader.TryGetMod("DialogueTweak", out Mod DPR))
+			{
+				foreach (int npcID in SupportedNPCs)
+				{
+					Func<bool> disableCondition = () => DialogueCycleButtonUI.ActiveDialogueMod != "DPR";
+					DPR.Call("DisablePanelRework", npcID, disableCondition);
+				}
+			}
 		}
 
 		public override void Unload()

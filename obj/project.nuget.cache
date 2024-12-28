@@ -1,13 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "fnuwuCBIzv8/1gRQPuDlodHZL4SSyl+wfCMWZENHGoLR5EMRxHXpN2fPbapytIAxKs/xTjowUR0B9OIbvy6toQ==",
+  "dgSpecHash": "sdKS6uSp2cYMFDTOzsd+OEQ5pweIJDN/a6uNOolfaFbwvgRxcsIuk2sXBr0TnnStpZLSkJFblTE9ULG0TjUUQw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Owner\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\BetterDialogue\\BetterDialogue.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Owner\\.nuget\\packages\\tmodloader.codeassist\\0.1.5\\tmodloader.codeassist.0.1.5.nupkg.sha512",
-    "C:\\Users\\Owner\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.31\\microsoft.windowsdesktop.app.ref.6.0.31.nupkg.sha512",
-    "C:\\Users\\Owner\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.31\\microsoft.netcore.app.ref.6.0.31.nupkg.sha512",
-    "C:\\Users\\Owner\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.31\\microsoft.aspnetcore.app.ref.6.0.31.nupkg.sha512"
+    "C:\\Users\\Owner\\.nuget\\packages\\tmodloader.codeassist\\0.1.5\\tmodloader.codeassist.0.1.5.nupkg.sha512"
   ],
   "logs": []
 }

@@ -14,9 +14,21 @@ as a framework for chat modification, Dialect comes pre-equipped with the follow
 - a freshened-up version of the vanilla dialogue style as an alternative option, for those just a little tired of the vanilla flair!
 - a few configuration options to generally apply to dialogue styles! note that dialogue styles don't HAVE to obey these; they just CAN (and SHOULD, though I can't force any of 'em to)
 
-(NOTE: this mod assumes that you're willin' to use it as a dependency. if this isn't your speed, I wouldn't bother; the mod has NO Mod.Call support whatsoever, and I don't plan to add any, as doin' so would defeat the point)
+------ NEW ADDITION -------
+havin' this mod installed also allows you to swap between Dialect's, vanilla's, and (if applicable) Dialogue Panel Rework's dialogue windows on the fly!
+this should allow Dialect to work mostly-seamlessly with mods which do not use it, or which assume you're already runnin' DPR instead
+please be aware that not all dialogue options will be available on all modes; that's not my job to make happen, either
+------ NEW ADDITION -------
+
+(NOTE: this mod assumes that you're willin' to use it as a dependency if you wish to integrate it with your own. if this isn't your speed, I wouldn't bother; the mod has NO Mod.Call support whatsoever, and I don't plan to add any, as doin' so would defeat the point)
 
 ----- CHANGELOGS BELOW ----
+
+v1.1.6:
+you are now able to cycle what dialogue setup is active!
+a new button that appears next to the dialogue box allows you to switch on the fly from Dialect's changes to vanilla's and back
+when the Dialogue Panel Rework mod is active, this will also allow you to switch to and from its panel
+(now please stop complainin' that they don't play nice with one another; they do now. huge thanks to the DPR creator for addin' the call that made this sensible to do!)
 
 v1.1.5.4:
 the Happiness button now properly respects NPCID.Sets.NoTownNPCHappiness
@@ -87,10 +99,3 @@ v1.0.1:
 
 v1.0:
 - initial release
-
------ CHANGELOGS ABOVE ----
-
-huh? what's that? what does VSC stand for?
-
-if anyone knows, they know
-if anyone asks, Victorian Sugar Cookies
