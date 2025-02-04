@@ -33,6 +33,9 @@ namespace BetterDialogue.UI
 
 		private static void DrawClassic(NPC npc, Player localPlayer, List<ChatButton> chatButtons)
 		{
+			if (Main.editChest)
+				return;
+
 			bool playerIsTalkingToSomeone = npc is not null;
 			bool playerIsUsingASign = localPlayer.sign != -1;
 			if (!playerIsTalkingToSomeone && !playerIsUsingASign)

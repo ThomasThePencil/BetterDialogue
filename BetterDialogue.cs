@@ -116,23 +116,41 @@ namespace BetterDialogue
 
 			On_Main.GUIChatDrawInner += (orig, self) =>
 			{
-				if (DialogueCycleButtonUI.ActiveDialogueMod is "Vanilla" or "DPR")
+				if (Main.editChest)
 				{
 					orig(self);
+					return;
+				}
+				else if (DialogueCycleButtonUI.ActiveDialogueMod is "Vanilla" or "DPR")
+				{
+					orig(self);
+					return;
 				}
 				else if (Main.LocalPlayer.TalkNPC is null)
 				{
 					if (Main.LocalPlayer.sign == -1)
-						Main.npcChatText = "";
+					{
+						orig(self);
+						return;
+					}
 					else
+					{
 						DialogueStyleLoader.DrawActiveDialogueStyle();
+						return;
+					}
 				}
 				else
 				{
 					if (!SupportedNPCs.Contains(Main.LocalPlayer.TalkNPC.type))
+					{
 						orig(self);
+						return;
+					}
 					else
+					{
 						DialogueStyleLoader.DrawActiveDialogueStyle();
+						return;
+					}
 				}
 			};
 		}

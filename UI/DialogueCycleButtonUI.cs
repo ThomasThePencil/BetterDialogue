@@ -65,6 +65,9 @@ namespace BetterDialogue.UI
 
 		public override void Draw(SpriteBatch spriteBatch)
 		{
+			if (Main.editChest)
+				return;
+
 			Player localPlayer = Main.LocalPlayer;
 			NPC npc = localPlayer.TalkNPC;
 			bool playerIsTalkingToSomeone = npc is not null;
@@ -75,6 +78,9 @@ namespace BetterDialogue.UI
 				ActiveDialogueMod = "Dialect";
 				return;
 			}
+
+			if (playerIsTalkingToSomeone && !BetterDialogue.SupportedNPCs.Contains(npc.type))
+				return;
 
 			BetterDialogueConfig config = ModContent.GetInstance<BetterDialogueConfig>();
 

@@ -24,6 +24,15 @@ please be aware that not all dialogue options will be available on all modes; th
 
 ----- CHANGELOGS BELOW ----
 
+v1.1.6.3:
+fixed an oversight which made it impossible to edit chest names, for real this time
+
+v1.1.6.2:
+fixed an oversight which made it impossible to edit chest names
+
+v1.1.6.1:
+fixed Dialect's setup cycle button bein' displayed on NPCs which aren't supported by Dialect
+
 v1.1.6:
 you are now able to cycle what dialogue setup is active!
 a new button that appears next to the dialogue box allows you to switch on the fly from Dialect's changes to vanilla's and back
