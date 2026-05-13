@@ -29,8 +29,7 @@ namespace BetterDialogue.UI.VanillaChatButtons
 			SoundEngine.PlaySound(SoundID.MenuTick);
 			int num28 = Main.rand.Next(1, 4);
 			Main.npcChatText = Language.GetTextValue("PartyGirlSpecialText.Music" + num28);
-			FieldInfo swapMusicInfo = typeof(Main).GetField("swapMusic", BindingFlags.NonPublic | BindingFlags.Static)!;
-			swapMusicInfo.SetValue(null, !(bool)swapMusicInfo.GetValue(null));
+			Main.swapMusic = !Main.swapMusic;
 		}
 	}
 }

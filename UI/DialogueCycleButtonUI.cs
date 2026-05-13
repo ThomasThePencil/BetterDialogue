@@ -75,11 +75,13 @@ namespace BetterDialogue.UI
 			if (!playerIsTalkingToSomeone && !playerIsUsingASign)
 			{
 				Main.npcChatText = "";
-				ActiveDialogueMod = "Dialect";
 				return;
 			}
 
 			if (playerIsTalkingToSomeone && !BetterDialogue.SupportedNPCs.Contains(npc.type))
+				return;
+
+			if (Main.npcShop > 0)
 				return;
 
 			BetterDialogueConfig config = ModContent.GetInstance<BetterDialogueConfig>();
@@ -156,7 +158,7 @@ namespace BetterDialogue.UI
 						Main.mouseLeftRelease = false;
 						localPlayer.releaseUseItem = false;
 						localPlayer.mouseInterface = true;
-						ActiveDialogueMod = ModLoader.TryGetMod("DialogueTweak", out Mod DPR) ? "DPR" : "Dialect";
+						ActiveDialogueMod = ModLoader.TryGetMod("DialogueTweak", out _) ? "DPR" : "Dialect";
 					}
 					else if (Main.mouseRight && Main.mouseRightRelease)
 					{
@@ -179,7 +181,7 @@ namespace BetterDialogue.UI
 						Main.mouseRightRelease = false;
 						localPlayer.releaseUseItem = false;
 						localPlayer.mouseInterface = true;
-						ActiveDialogueMod = ModLoader.TryGetMod("DialogueTweak", out Mod DPR) ? "DPR" : "Vanilla";
+						ActiveDialogueMod = ModLoader.TryGetMod("DialogueTweak", out _) ? "DPR" : "Vanilla";
 					}
 					break;
 				case "DPR":

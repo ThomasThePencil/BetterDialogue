@@ -60,10 +60,10 @@ namespace BetterDialogue.UI
 			List<ChatButton> activeChatButtons = new List<ChatButton>();
 			if (player.sign != -1)
 			{
-				activeChatButtons = new List<ChatButton>() {
+				activeChatButtons = [
 					ChatButton.Sign,
 					ChatButton.Exit
-				};
+				];
 			}
 			else
 			{

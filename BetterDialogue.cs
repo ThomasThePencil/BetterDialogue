@@ -69,8 +69,8 @@ namespace BetterDialogue
 			DialogueStyleLoader.Load();
 			ChatButtonLoader.Load();
 
-			SupportedNPCs = new List<int>()
-			{
+			SupportedNPCs =
+			[
 				NPCID.Guide,
 				NPCID.Merchant,
 				NPCID.Nurse,
@@ -111,7 +111,7 @@ namespace BetterDialogue
 				NPCID.TownSlimeRed,
 				NPCID.TownSlimeYellow,
 				NPCID.TownSlimeCopper,
-			};
+			];
 			ShopButton.ResetShoppableNPCList();
 
 			On_Main.GUIChatDrawInner += (orig, self) =>
