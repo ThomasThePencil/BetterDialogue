@@ -20,6 +20,15 @@ namespace BetterDialogue
 		/// </summary>
 		public static List<int> SupportedNPCs { get; internal set; }
 
+		public enum DefaultSystem
+		{
+			UseLastOpened,
+			Dialect,
+			Vanilla,
+			DPR,
+		}
+		public static Dictionary<int, DefaultSystem> DefaultDialogueSystemForNPCs { get; internal set; }
+
 		/// <summary>
 		/// Sets the given NPC type as a type of NPC which the player can open a standard shop at.<br/>
 		/// Alongside <see cref="UnregisterShoppableNPC"/>, affects whether or not the Shop button is added to the dialogue window.<br/>
@@ -114,6 +123,50 @@ namespace BetterDialogue
 			];
 			ShopButton.ResetShoppableNPCList();
 
+			DefaultDialogueSystemForNPCs = new Dictionary<int, DefaultSystem>
+			{
+				{ NPCID.Guide, DefaultSystem.UseLastOpened },
+				{ NPCID.Merchant, DefaultSystem.UseLastOpened },
+				{ NPCID.Nurse, DefaultSystem.UseLastOpened },
+				{ NPCID.ArmsDealer, DefaultSystem.UseLastOpened },
+				{ NPCID.Dryad, DefaultSystem.UseLastOpened },
+				{ NPCID.OldMan, DefaultSystem.UseLastOpened },
+				{ NPCID.Demolitionist, DefaultSystem.UseLastOpened },
+				{ NPCID.Clothier, DefaultSystem.UseLastOpened },
+				{ NPCID.GoblinTinkerer, DefaultSystem.UseLastOpened },
+				{ NPCID.Wizard, DefaultSystem.UseLastOpened },
+				{ NPCID.Mechanic, DefaultSystem.UseLastOpened },
+				{ NPCID.SantaClaus, DefaultSystem.UseLastOpened },
+				{ NPCID.Truffle, DefaultSystem.UseLastOpened },
+				{ NPCID.Steampunker, DefaultSystem.UseLastOpened },
+				{ NPCID.DyeTrader, DefaultSystem.UseLastOpened },
+				{ NPCID.PartyGirl, DefaultSystem.UseLastOpened },
+				{ NPCID.Cyborg, DefaultSystem.UseLastOpened },
+				{ NPCID.Painter, DefaultSystem.UseLastOpened },
+				{ NPCID.WitchDoctor, DefaultSystem.UseLastOpened },
+				{ NPCID.Pirate, DefaultSystem.UseLastOpened },
+				{ NPCID.Stylist, DefaultSystem.UseLastOpened },
+				{ NPCID.TravellingMerchant, DefaultSystem.UseLastOpened },
+				{ NPCID.Angler, DefaultSystem.UseLastOpened },
+				{ NPCID.TaxCollector, DefaultSystem.UseLastOpened },
+				{ NPCID.SkeletonMerchant, DefaultSystem.UseLastOpened },
+				{ NPCID.DD2Bartender, DefaultSystem.UseLastOpened },
+				{ NPCID.Golfer, DefaultSystem.UseLastOpened },
+				{ NPCID.BestiaryGirl, DefaultSystem.UseLastOpened },
+				{ NPCID.Princess, DefaultSystem.UseLastOpened },
+				{ NPCID.TownCat, DefaultSystem.UseLastOpened },
+				{ NPCID.TownDog, DefaultSystem.UseLastOpened },
+				{ NPCID.TownBunny, DefaultSystem.UseLastOpened },
+				{ NPCID.TownSlimeBlue, DefaultSystem.UseLastOpened },
+				{ NPCID.TownSlimeGreen, DefaultSystem.UseLastOpened },
+				{ NPCID.TownSlimeOld, DefaultSystem.UseLastOpened },
+				{ NPCID.TownSlimePurple, DefaultSystem.UseLastOpened },
+				{ NPCID.TownSlimeRainbow, DefaultSystem.UseLastOpened },
+				{ NPCID.TownSlimeRed, DefaultSystem.UseLastOpened },
+				{ NPCID.TownSlimeYellow, DefaultSystem.UseLastOpened },
+				{ NPCID.TownSlimeCopper, DefaultSystem.UseLastOpened },
+			};
+
 			On_Main.GUIChatDrawInner += (orig, self) =>
 			{
 				if (Main.editChest)
@@ -151,6 +204,29 @@ namespace BetterDialogue
 						DialogueStyleLoader.DrawActiveDialogueStyle();
 						return;
 					}
+				}
+			};
+
+			On_Player.SetTalkNPC += (On_Player.orig_SetTalkNPC orig, Player self, int npcIndex, bool fromNet) =>
+			{
+				orig(self, npcIndex, fromNet);
+				NPC npc = Main.npc[npcIndex];
+				if (SupportedNPCs.Contains(npc.type))
+					return;
+				switch (DefaultDialogueSystemForNPCs[npc.type])
+				{
+					case DefaultSystem.Dialect:
+						DialogueCycleButtonUI.ActiveDialogueMod = "Dialect";
+						break;
+					case DefaultSystem.Vanilla:
+						DialogueCycleButtonUI.ActiveDialogueMod = "Vanilla";
+						break;
+					case DefaultSystem.DPR:
+						DialogueCycleButtonUI.ActiveDialogueMod = "DPR";
+						break;
+					case DefaultSystem.UseLastOpened:
+					default:
+						break;
 				}
 			};
 		}
