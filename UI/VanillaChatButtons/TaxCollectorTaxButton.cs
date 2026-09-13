@@ -76,20 +76,18 @@ namespace BetterDialogue.UI.VanillaChatButtons
 
 		public override double Priority => 14.0;
 
-		public override Color? OverrideColor(NPC npc, Player player)
+		public override void ModifyColor(NPC npc, Player player, Vector2 position, ref Color textColor, ref Color shadowColor)
 		{
 			CollectedTaxes(npc, player, out int platinumTaxMoney, out int goldTaxMoney, out int silverTaxMoney, out int copperTaxMoney);
 			float mouseTextColorFactor = (float)(int)Main.mouseTextColor / 255f;
 			if (platinumTaxMoney > 0)
-				return new Color((byte)(220f * mouseTextColorFactor), (byte)(220f * mouseTextColorFactor), (byte)(198f * mouseTextColorFactor), Main.mouseTextColor);
+				textColor = new Color((byte)(220f * mouseTextColorFactor), (byte)(220f * mouseTextColorFactor), (byte)(198f * mouseTextColorFactor), Main.mouseTextColor);
 			else if (goldTaxMoney > 0)
-				return new Color((byte)(224f * mouseTextColorFactor), (byte)(201f * mouseTextColorFactor), (byte)(92f * mouseTextColorFactor), Main.mouseTextColor);
+				textColor = new Color((byte)(224f * mouseTextColorFactor), (byte)(201f * mouseTextColorFactor), (byte)(92f * mouseTextColorFactor), Main.mouseTextColor);
 			else if (silverTaxMoney > 0)
-				return new Color((byte)(181f * mouseTextColorFactor), (byte)(192f * mouseTextColorFactor), (byte)(193f * mouseTextColorFactor), Main.mouseTextColor);
+				textColor = new Color((byte)(181f * mouseTextColorFactor), (byte)(192f * mouseTextColorFactor), (byte)(193f * mouseTextColorFactor), Main.mouseTextColor);
 			else if (copperTaxMoney > 0)
-				return new Color((byte)(246f * mouseTextColorFactor), (byte)(138f * mouseTextColorFactor), (byte)(96f * mouseTextColorFactor), Main.mouseTextColor);
-
-			return null;
+				textColor = new Color((byte)(246f * mouseTextColorFactor), (byte)(138f * mouseTextColorFactor), (byte)(96f * mouseTextColorFactor), Main.mouseTextColor);
 		}
 
 		public override string Description(NPC npc, Player player) => npc.GivenName + " gathers money from the local townsfolk so you don't have to. Check in with him every once in a while to snag your share of the haul!";

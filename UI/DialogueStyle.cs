@@ -67,14 +67,13 @@ namespace BetterDialogue.UI
 		/// Defaults to using the vanilla calculation for button colors (which results in the yellow coloration you know and love/hate from vanilla).<br/>
 		/// To emulate vanilla behavior more closely (read: to mimic the gradual fade between darker and lighter shades of your color), use <see cref="Main.mouseTextColor"/> as a reference instead of <see cref="Color.White"/>.<br/>
 		/// </summary>
-		public virtual Color ChatButtonColor
-		{
-			get
-			{
-				int mouseTextColor = Main.mouseTextColor;
-				return new Color(mouseTextColor, (int)((double)mouseTextColor / 1.1), mouseTextColor / 2, mouseTextColor);
-			}
-		}
+		public virtual Color ChatButtonColor(ChatButton chatButton, NPC npc, Player player) => new Color(Main.mouseTextColor, (int)((double)(int)Main.mouseTextColor / 1.1), Main.mouseTextColor / 2, Main.mouseTextColor);
+
+		/// <summary>
+		/// The main text color to be used when drawing chat buttons.<br/>
+		/// Defaults to using the vanilla calculation for button colors (which results in brown while hovered and black while not).<br/>
+		/// </summary>
+		public virtual Color ChatButtonShadowColor(ChatButton chatButton, NPC npc, Player player) => chatButton.IsHovered ? Color.Brown : Color.Black;
 
 		/// <summary>
 		/// The font to be used for dialogue with this dialogue style.<br/>

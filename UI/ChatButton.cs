@@ -98,16 +98,14 @@ namespace BetterDialogue.UI
 		public abstract double Priority { get; }
 
 		/// <summary>
-		/// The text your chat button is to display.<br/>
-		/// Defaults to <see langword="null"/>, in which case the button will use the button text color decided by the currently active dialogue style.<br/>
+		/// Allows you to modify the colors of the text which your chat button is to display.<br/>
 		/// </summary>
 		/// <param name="npc">The NPC the given player is talking to.</param>
 		/// <param name="player">The player talking to the given NPC.</param>
-		/// <returns>
-		/// <see langword="null"/> by default, which means the color will not be overrided.<br/>
-		/// Otherwise, the <see cref="Color"/> returned will override whatever color the button would normally use.<br/>
-		/// </returns>
-		public virtual Color? OverrideColor(NPC npc, Player player) => null;
+		/// <param name="position">The position at which the chat button's text is to be drawn.</param>
+		/// <param name="textColor">The color to be used to draw the main text.</param>
+		/// <param name="shadowColor">The color to be used to draw the main text's shadow.</param>
+		public virtual void ModifyColor(NPC npc, Player player, Vector2 position, ref Color textColor, ref Color shadowColor) { }
 
 		/// <summary>
 		/// A description of your chat button.<br/>

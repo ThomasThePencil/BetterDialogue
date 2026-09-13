@@ -34,11 +34,19 @@ namespace BetterDialogue.UI
 		/// <param name="chatButton">The chat button to modify the text color of.</param>
 		/// <param name="npc">The NPC the given player is talking to.</param>
 		/// <param name="player">The player talking to the given NPC.</param>
-		/// <param name="buttonTextColor">
-		/// The color to be used for the button, sourced from <see cref="DialogueStyle.ChatButtonColor"/>, <see cref="ChatButton.OverrideColor(NPC, Player)"/>,<br/>
-		/// and any previous <see cref="ModifyColor(ChatButton, NPC, Player, ref Color)"/> calls.<br/>
+		/// <param name="textColor">
+		/// The color to be used for the button's text, sourced from<br/>
+		/// <see cref="DialogueStyle.ChatButtonColor"/>,<br/>
+		/// <see cref="ChatButton.ModifyColor"/>, and any previous<br/>
+		/// <see cref="ModifyColor"/> calls.<br/>
 		/// </param>
-		public virtual void ModifyColor(ChatButton chatButton, NPC npc, Player player, ref Color buttonTextColor) { }
+		/// <param name="shadowColor">
+		/// The color to be used for the button's text shadow, sourced from<br/>
+		/// <see cref="DialogueStyle.ChatButtonShadowColor"/>,<br/>
+		/// <see cref="ChatButton.ModifyColor"/>, and any previous<br/>
+		/// <see cref="ModifyColor"/> calls.<br/>
+		/// </param>
+		public virtual void ModifyColor(ChatButton chatButton, NPC npc, Player player, ref Color textColor, ref Color shadowColor) { }
 
 		/// <summary>
 		/// Allows you to modify the description for an existing chat button.<br/>

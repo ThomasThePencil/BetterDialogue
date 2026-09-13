@@ -114,20 +114,18 @@ namespace BetterDialogue.UI.VanillaChatButtons
 
 		public override double Priority => 5.0;
 
-		public override Color? OverrideColor(NPC npc, Player player)
+		public override void ModifyColor(NPC npc, Player player, Vector2 position, ref Color textColor, ref Color shadowColor)
 		{
 			HealPrice(npc, player, out _, out int platinumCost, out int goldCost, out int silverCost, out int copperCost);
 			float mouseTextColorFactor = (float)(int)Main.mouseTextColor / 255f;
 			if (platinumCost > 0)
-				return new Color((byte)(220f * mouseTextColorFactor), (byte)(220f * mouseTextColorFactor), (byte)(198f * mouseTextColorFactor), Main.mouseTextColor);
+				textColor = new Color((byte)(220f * mouseTextColorFactor), (byte)(220f * mouseTextColorFactor), (byte)(198f * mouseTextColorFactor), Main.mouseTextColor);
 			else if (goldCost > 0)
-				return new Color((byte)(224f * mouseTextColorFactor), (byte)(201f * mouseTextColorFactor), (byte)(92f * mouseTextColorFactor), Main.mouseTextColor);
+				textColor = new Color((byte)(224f * mouseTextColorFactor), (byte)(201f * mouseTextColorFactor), (byte)(92f * mouseTextColorFactor), Main.mouseTextColor);
 			else if (silverCost > 0)
-				return new Color((byte)(181f * mouseTextColorFactor), (byte)(192f * mouseTextColorFactor), (byte)(193f * mouseTextColorFactor), Main.mouseTextColor);
+				textColor = new Color((byte)(181f * mouseTextColorFactor), (byte)(192f * mouseTextColorFactor), (byte)(193f * mouseTextColorFactor), Main.mouseTextColor);
 			else if (copperCost > 0)
-				return new Color((byte)(246f * mouseTextColorFactor), (byte)(138f * mouseTextColorFactor), (byte)(96f * mouseTextColorFactor), Main.mouseTextColor);
-
-			return null;
+				textColor = new Color((byte)(246f * mouseTextColorFactor), (byte)(138f * mouseTextColorFactor), (byte)(96f * mouseTextColorFactor), Main.mouseTextColor);
 		}
 
 		public override string Description(NPC npc, Player player) => "Have " + npc.GivenName + " tend to your injuries, for a cost.";

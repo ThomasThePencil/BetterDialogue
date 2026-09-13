@@ -88,17 +88,17 @@ namespace BetterDialogue.UI
 		/// <returns>
 		/// The description that this <see cref="ChatButton"/> should have.<br/>
 		/// </returns>
-		public static Color GetColor(ChatButton chatButton, NPC npc, Player player)
+		public static void GetColor(ChatButton chatButton, NPC npc, Player player, Vector2 position, out Color textColor, out Color shadowColor)
 		{
-			Color buttonColor = BetterDialogue.CurrentActiveStyle.ChatButtonColor;
-			Color? overrideColor = chatButton.OverrideColor(npc, player);
-			if (overrideColor.HasValue)
-				buttonColor = overrideColor.Value;
+			textColor = BetterDialogue.CurrentActiveStyle.ChatButtonColor(chatButton, npc, player);
+			shadowColor = BetterDialogue.CurrentActiveStyle.ChatButtonShadowColor(chatButton, npc, player);
+
+			chatButton.ModifyColor(npc, player, position, ref textColor, ref shadowColor);
+
 			foreach (GlobalChatButton global in ChatButtonGlobals)
 			{
-				global.ModifyColor(chatButton, npc, player, ref buttonColor);
+				global.ModifyColor(chatButton, npc, player, ref textColor, ref shadowColor);
 			}
-			return buttonColor;
 		}
 
 		/// <summary>

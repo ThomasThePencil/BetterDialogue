@@ -282,8 +282,6 @@ namespace BetterDialogue.UI
 				DynamicSpriteFont buttonTextFont = BetterDialogue.CurrentActiveStyle.ChatButtonFont;
 				Vector2 buttonTextScale = new Vector2(0.9f);
 				Vector2 buttonTextSize = ChatManager.GetStringSize(buttonTextFont, buttonText, buttonTextScale);
-				Color baseColor = ChatButtonLoader.GetColor(button, talkNPC, localPlayer);
-				Color black = Color.Black;
 				float hoverScaleModifier = 1.2f;
 				Vector2 whatDoesThisEvenDo = new Vector2(1f);
 				if (buttonTextSize.X > (260f))
@@ -314,13 +312,15 @@ namespace BetterDialogue.UI
 				}
 				button.WasHovered = button.IsHovered;
 
+				ChatButtonLoader.GetColor(button, talkNPC, localPlayer, modifiedButtonPosition, out Color textColor, out Color shadowColor);
+
 				ChatManager.DrawColorCodedStringWithShadow(
 					Main.spriteBatch,
 					buttonTextFont,
 					buttonText,
 					modifiedButtonPosition + (buttonTextSize * 0.5f),
-					baseColor,
-					button.IsHovered ? Color.Brown : Color.Black,
+					textColor,
+					shadowColor,
 					0f,
 					buttonTextSize * 0.5f,
 					buttonTextScale
