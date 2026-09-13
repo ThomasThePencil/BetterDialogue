@@ -1,13 +1,6 @@
-﻿using BetterDialogue.UI.DefaultDialogueStyles;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Graphics;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
-using Terraria.GameContent;
 
 namespace BetterDialogue.UI
 {

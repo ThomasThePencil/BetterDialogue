@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Owner\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\BetterDialogue\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{872D83DA-519A-48D8-B9AD-9AE1EFCFC14A}|BetterDialogue.csproj|c:\\users\\owner\\documents\\my games\\terraria\\tmodloader\\modsources\\betterdialogue\\betterdialogue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{872D83DA-519A-48D8-B9AD-9AE1EFCFC14A}|BetterDialogue.csproj|solutionrelative:betterdialogue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{872D83DA-519A-48D8-B9AD-9AE1EFCFC14A}|BetterDialogue.csproj|c:\\users\\owner\\documents\\my games\\terraria\\tmodloader\\modsources\\betterdialogue\\ui\\defaultdialoguestyles\\classic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{872D83DA-519A-48D8-B9AD-9AE1EFCFC14A}|BetterDialogue.csproj|solutionrelative:ui\\defaultdialoguestyles\\classic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{872D83DA-519A-48D8-B9AD-9AE1EFCFC14A}|BetterDialogue.csproj|c:\\users\\owner\\documents\\my games\\terraria\\tmodloader\\modsources\\betterdialogue\\localization\\en-us.hjson||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{872D83DA-519A-48D8-B9AD-9AE1EFCFC14A}|BetterDialogue.csproj|solutionrelative:localization\\en-us.hjson||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{872D83DA-519A-48D8-B9AD-9AE1EFCFC14A}|BetterDialogue.csproj|c:\\users\\owner\\documents\\my games\\terraria\\tmodloader\\modsources\\betterdialogue\\ui\\defaultdialoguestyles\\classicrefurbished.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{872D83DA-519A-48D8-B9AD-9AE1EFCFC14A}|BetterDialogue.csproj|solutionrelative:ui\\defaultdialoguestyles\\classicrefurbished.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{872D83DA-519A-48D8-B9AD-9AE1EFCFC14A}|BetterDialogue.csproj|c:\\users\\owner\\documents\\my games\\terraria\\tmodloader\\modsources\\betterdialogue\\ui\\examplechatbuttonchanges\\guidecrafting.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{872D83DA-519A-48D8-B9AD-9AE1EFCFC14A}|BetterDialogue.csproj|solutionrelative:ui\\examplechatbuttonchanges\\guidecrafting.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{872D83DA-519A-48D8-B9AD-9AE1EFCFC14A}|BetterDialogue.csproj|c:\\users\\owner\\documents\\my games\\terraria\\tmodloader\\modsources\\betterdialogue\\ui\\globaldialoguestyle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{872D83DA-519A-48D8-B9AD-9AE1EFCFC14A}|BetterDialogue.csproj|solutionrelative:ui\\globaldialoguestyle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,27 +35,53 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "BetterDialogue.cs",
-              "DocumentMoniker": "C:\\Users\\Owner\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\BetterDialogue\\BetterDialogue.cs",
-              "RelativeDocumentMoniker": "BetterDialogue.cs",
-              "ToolTip": "C:\\Users\\Owner\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\BetterDialogue\\BetterDialogue.cs",
-              "RelativeToolTip": "BetterDialogue.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAwwBoAAAAHAAAAAAAAAA==",
+              "Title": "Classic.cs",
+              "DocumentMoniker": "C:\\Users\\Owner\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\BetterDialogue\\UI\\DefaultDialogueStyles\\Classic.cs",
+              "RelativeDocumentMoniker": "UI\\DefaultDialogueStyles\\Classic.cs",
+              "ToolTip": "C:\\Users\\Owner\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\BetterDialogue\\UI\\DefaultDialogueStyles\\Classic.cs",
+              "RelativeToolTip": "UI\\DefaultDialogueStyles\\Classic.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-13T15:26:42.106Z",
+              "WhenOpened": "2026-09-13T16:42:39.36Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "en-US.hjson",
-              "DocumentMoniker": "C:\\Users\\Owner\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\BetterDialogue\\Localization\\en-US.hjson",
-              "RelativeDocumentMoniker": "Localization\\en-US.hjson",
-              "ToolTip": "C:\\Users\\Owner\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\BetterDialogue\\Localization\\en-US.hjson",
-              "RelativeToolTip": "Localization\\en-US.hjson",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2026-05-13T14:10:34.896Z",
+              "Title": "ClassicRefurbished.cs",
+              "DocumentMoniker": "C:\\Users\\Owner\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\BetterDialogue\\UI\\DefaultDialogueStyles\\ClassicRefurbished.cs",
+              "RelativeDocumentMoniker": "UI\\DefaultDialogueStyles\\ClassicRefurbished.cs",
+              "ToolTip": "C:\\Users\\Owner\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\BetterDialogue\\UI\\DefaultDialogueStyles\\ClassicRefurbished.cs",
+              "RelativeToolTip": "UI\\DefaultDialogueStyles\\ClassicRefurbished.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-13T16:42:36.887Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GuideCrafting.cs",
+              "DocumentMoniker": "C:\\Users\\Owner\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\BetterDialogue\\UI\\ExampleChatButtonChanges\\GuideCrafting.cs",
+              "RelativeDocumentMoniker": "UI\\ExampleChatButtonChanges\\GuideCrafting.cs",
+              "ToolTip": "C:\\Users\\Owner\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\BetterDialogue\\UI\\ExampleChatButtonChanges\\GuideCrafting.cs",
+              "RelativeToolTip": "UI\\ExampleChatButtonChanges\\GuideCrafting.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-13T16:42:32.962Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "GlobalDialogueStyle.cs",
+              "DocumentMoniker": "C:\\Users\\Owner\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\BetterDialogue\\UI\\GlobalDialogueStyle.cs",
+              "RelativeDocumentMoniker": "UI\\GlobalDialogueStyle.cs",
+              "ToolTip": "C:\\Users\\Owner\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\BetterDialogue\\UI\\GlobalDialogueStyle.cs",
+              "RelativeToolTip": "UI\\GlobalDialogueStyle.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-13T16:41:14.025Z",
               "EditorCaption": ""
             }
           ]

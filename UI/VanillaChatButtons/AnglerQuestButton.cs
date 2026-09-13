@@ -2,7 +2,6 @@
 using Terraria.Audio;
 using Terraria.GameContent.Achievements;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace BetterDialogue.UI.VanillaChatButtons
 {

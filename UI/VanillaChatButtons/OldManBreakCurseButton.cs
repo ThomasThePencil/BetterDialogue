@@ -1,7 +1,5 @@
 ﻿using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
-using Terraria.UI.Gamepad;
 
 namespace BetterDialogue.UI.VanillaChatButtons
 {

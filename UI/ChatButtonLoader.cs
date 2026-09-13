@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System.Linq;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace BetterDialogue.UI
 {

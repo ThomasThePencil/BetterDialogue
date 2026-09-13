@@ -1,6 +1,5 @@
 ﻿using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent.Achievements;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;

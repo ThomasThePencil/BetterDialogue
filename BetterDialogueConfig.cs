@@ -1,7 +1,5 @@
-using BetterDialogue.UI;
 using BetterDialogue.UI.Config;
 using System.ComponentModel;
-using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
 
 namespace BetterDialogue

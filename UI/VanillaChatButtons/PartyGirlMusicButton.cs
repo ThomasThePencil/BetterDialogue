@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent.Achievements;
 using Terraria.ID;
 using Terraria.Localization;
 
