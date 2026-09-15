@@ -66,6 +66,12 @@ namespace BetterDialogue.UI
 		/// Does NOT display if the "don't dig up" world modifier (which disables happiness as one of its effects) is active.<br/>
 		/// </summary>
 		public static HappinessButton TownNPCHappiness { get; private set; } = new HappinessButton();
+		/// <summary>
+		/// Gives a dialogue snippet about how a town NPC would probably quite like a home.<br/>
+		/// Only displays for town NPCs that do not have an assigned home.<br/>
+		/// Does NOT display if the "don't dig up" world modifier (which disables happiness as one of its effects) is active.<br/>
+		/// </summary>
+		public static HappinessButton TownNPCHousing { get; private set; } = new HousingRequestButton();
 
 		/// <summary>
 		/// The Rectangle to be used for hovering over this chat button.<br/>

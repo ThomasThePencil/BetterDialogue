@@ -6,11 +6,11 @@ namespace BetterDialogue.UI
 {
 	public static class ChatButtonLoader
 	{
-		internal static List<ChatButton> ChatButtons = new List<ChatButton>();
-		internal static List<GlobalChatButton> ChatButtonGlobals = new List<GlobalChatButton>();
+		internal static List<ChatButton> ChatButtons = [];
+		internal static List<GlobalChatButton> ChatButtonGlobals = [];
 
 		internal static void Load() {
-			ChatButtons = new List<ChatButton>() {
+			ChatButtons = [
 				ChatButton.Sign,
 				ChatButton.Pet,
 				ChatButton.Shop,
@@ -30,8 +30,9 @@ namespace BetterDialogue.UI
 				ChatButton.OldManCurse,
 				ChatButton.Exit,
 				ChatButton.TownNPCHappiness,
-			};
-			ChatButtonGlobals = new List<GlobalChatButton>();
+				ChatButton.TownNPCHousing,
+			];
+			ChatButtonGlobals = [];
 		}
 
 		internal static void Unload() {
